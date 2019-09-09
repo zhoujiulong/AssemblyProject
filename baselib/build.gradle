@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+// 加载config.properties文件
+Properties configProp = new Properties()
+configProp.load(new FileInputStream(file("$rootDir/config.properties")))
+
+android {
+
+    compileSdkVersion rootProject.android_compileSdkVersion
+    buildToolsVersion rootProject.android_buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion android_minSdkVersion
+        targetSdkVersion android_targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            buildConfigField("String", "BASE_URL", configProp['ReleaseUrl'])
+            buildConfigField("boolean", "DEBUG_MODE", "false")//是否debug模式
+        }
+        debug {
+            buildConfigField("String", "BASE_URL", configProp['DebugUrl'])
+            buildConfigField("boolean", "DEBUG_MODE", "true")//是否debug模式
+        }
+    }
+
+    resourcePrefix "base_"
+}
+
+dependencies {
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':reslib')
+
+    api appcompat
+
+    api koltin
+    //低版本分包、64k限制解决
+    api multidex
+    //网络请求
+    api retrofit
+    api gson
+    api loginterceptor
+    //rxjava
+    api rxjava
+    api rxandroid
+    //权限申请 https://github.com/tbruyelle/RxPermissions
+    api rxpermissions
+    //图片
+    api glide
+    api okhttp_integration
+    //下拉刷新 https://github.com/scwang90/SmartRefreshLayout
+    api smartrefreshlayout
+    //上拉加載更多和 adapter 適配 https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    api baserecyclerviewadapterhelper
+    //消息订阅 https://github.com/greenrobot/EventBus
+    api eventbus
+    //日志输出 https://github.com/orhanobut/logger
+    api outlogger
+    //tab切换 https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md
+    api flycotablayout
+    //https://github.com/alibaba/ARouter
+    api arouter
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
