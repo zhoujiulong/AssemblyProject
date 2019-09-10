@@ -85,7 +85,11 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    compileOnly project(':commonlib')
+    if (isRun) {
+        api project(':commonlib')
+    } else {
+        compileOnly project(':commonlib')
+    }
 
     kapt arouter_annotation
 }
