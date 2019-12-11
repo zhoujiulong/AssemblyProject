@@ -107,7 +107,7 @@ public class LoadingView extends FrameLayout {
         }
 
         mViewLoading = mLoadingView.findViewById(R.id.view_loading);
-        mViewLoading.setImageResource(R.drawable.widget_anim_loading);
+        mViewLoading.setImageResource(R.drawable.base_anim_loading);
         mLoadingAni = (AnimationDrawable) mViewLoading.getDrawable();
 
         mIvErrorIcon = mErrorView.findViewById(R.id.iv_error);

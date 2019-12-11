@@ -2,6 +2,10 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
 // 加载config.properties文件
 Properties configProp = new Properties()
 configProp.load(new FileInputStream(file("$rootDir/config.properties")))
@@ -67,6 +71,10 @@ dependencies {
     api flycotablayout
     //https://github.com/alibaba/ARouter
     api arouter
+    //图片加载
+    api glide
+    annotationProcessor glidecompiler
+    api okhttp_integration
 }
 
 
