@@ -4,9 +4,6 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
-import com.orhanobut.logger.PrettyFormatStrategy
 import com.zhoujiulong.baselib.BuildConfig
 import com.zhoujiulong.baselib.utils.ContextUtil
 
@@ -30,21 +27,7 @@ open class SimpleApplication : Application() {
         super.onCreate()
         instance = this
         ContextUtil.init(this)
-        initLogger()
         initARouter()
-    }
-
-    /**
-     * 初始化日志输入框架
-     */
-    private fun initLogger() {
-        val formatStrategy = PrettyFormatStrategy.newBuilder()
-            .showThreadInfo(true).methodCount(1).methodOffset(1).tag("zhoujiulong").build()
-        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
-            override fun isLoggable(priority: Int, tag: String?): Boolean {
-                return BuildConfig.DEBUG_MODE
-            }
-        })
     }
 
     /**

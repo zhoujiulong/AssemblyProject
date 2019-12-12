@@ -22,13 +22,11 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
-import com.orhanobut.logger.Logger
-
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 import java.lang.reflect.Method
-import java.util.Properties
+import java.util.*
 
 /**
  * @author cginechen
@@ -59,7 +57,7 @@ object DeviceUtil {
                     FileInputStream(File(Environment.getRootDirectory(), "build.prop"))
                 properties.load(fileInputStream)
             } catch (e: Exception) {
-                Logger.d("read file error")
+                LogUtil.d("read file error")
             } finally {
                 if (fileInputStream != null) {
                     try {
@@ -81,7 +79,7 @@ object DeviceUtil {
             //flyme
             sFlymeVersionName = getLowerCaseName(properties, getMethod, KEY_FLYME_VERSION_NAME)
         } catch (e: Exception) {
-            Logger.d("read SystemProperties error")
+            LogUtil.d("read SystemProperties error")
         }
 
     }

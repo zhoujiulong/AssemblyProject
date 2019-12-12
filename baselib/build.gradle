@@ -56,8 +56,9 @@ dependencies {
     api rxandroid
     //权限申请 https://github.com/tbruyelle/RxPermissions
     api rxpermissions
-    //图片
+    //图片加载
     api glide
+    annotationProcessor glidecompiler
     api okhttp_integration
     //下拉刷新 https://github.com/scwang90/SmartRefreshLayout
     api smartrefreshlayout
@@ -65,16 +66,9 @@ dependencies {
     api baserecyclerviewadapterhelper
     //消息订阅 https://github.com/greenrobot/EventBus
     api eventbus
-    //日志输出 https://github.com/orhanobut/logger
-    api outlogger
-    //tab切换 https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md
-    api flycotablayout
     //https://github.com/alibaba/ARouter
     api arouter
-    //图片加载
-    api glide
-    annotationProcessor glidecompiler
-    api okhttp_integration
+
 }
 
 

@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
 import android.os.Build
-import androidx.annotation.ColorInt
-import androidx.annotation.RequiresApi
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.annotation.ColorInt
+import androidx.annotation.RequiresApi
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.scwang.smartrefresh.layout.api.RefreshKernel
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -30,9 +30,9 @@ class NormalRefreshHeader : RelativeLayout, RefreshHeader {
 
     private var mImageViewAni: ImageView? = null
     private var mRefreshAnim: AnimationDrawable? = null
-    protected var mFinishDuration = 500
-    protected var mSpinnerStyle = SpinnerStyle.Scale
-    protected lateinit var mRefreshKernel: RefreshKernel
+    private var mFinishDuration = 500
+    private var mSpinnerStyle = SpinnerStyle.Scale
+    private lateinit var mRefreshKernel: RefreshKernel
 
     @JvmOverloads
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(
@@ -59,8 +59,8 @@ class NormalRefreshHeader : RelativeLayout, RefreshHeader {
         mImageViewAni!!.setImageResource(R.drawable.widget_anim_refresh)
         val ivWidth = DensityUtil.getPxByResId(context, R.dimen.dip80)
         val ivHeight = DensityUtil.getPxByResId(context, R.dimen.dip80)
-        val lpHeaderLayout = RelativeLayout.LayoutParams(ivWidth, ivHeight)
-        lpHeaderLayout.addRule(RelativeLayout.CENTER_IN_PARENT)
+        val lpHeaderLayout = LayoutParams(ivWidth, ivHeight)
+        lpHeaderLayout.addRule(CENTER_IN_PARENT)
         addView(mImageViewAni, lpHeaderLayout)
 
     }
@@ -79,14 +79,9 @@ class NormalRefreshHeader : RelativeLayout, RefreshHeader {
 
     override fun onHorizontalDrag(percentX: Float, offsetX: Int, offsetMax: Int) {}
 
-    override fun onPulling(percent: Float, offset: Int, height: Int, extendHeight: Int) {
-        if (percent <= 1) {
-            mImageViewAni!!.scaleX = percent
-            mImageViewAni!!.scaleY = percent
-        }
-    }
-
-    override fun onReleasing(percent: Float, offset: Int, headerHeight: Int, extendHeight: Int) {
+    override fun onMoving(
+        isDragging: Boolean, percent: Float, offset: Int, height: Int, maxDragHeight: Int
+    ) {
         if (percent <= 1) {
             mImageViewAni!!.scaleX = percent
             mImageViewAni!!.scaleY = percent
@@ -119,14 +114,8 @@ class NormalRefreshHeader : RelativeLayout, RefreshHeader {
     }
 
     override fun onStateChanged(
-        refreshLayout: RefreshLayout,
-        oldState: RefreshState,
-        newState: RefreshState
+        refreshLayout: RefreshLayout, oldState: RefreshState, newState: RefreshState
     ) {
-        when (newState) {
-            RefreshState.None, RefreshState.PullDownToRefresh, RefreshState.PullDownCanceled, RefreshState.Refreshing, RefreshState.ReleaseToRefresh, RefreshState.Loading -> {
-            }
-        }
     }
 
 }
