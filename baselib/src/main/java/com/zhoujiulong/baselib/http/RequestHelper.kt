@@ -28,7 +28,6 @@ import java.io.InputStream
  */
 internal class RequestHelper private constructor() {
     private var mOnTokenInvalidListener: OnTokenInvalidListener? = null
-    private val mHandler by lazy { Handler(Looper.getMainLooper()) }
 
     companion object {
 
@@ -207,6 +206,7 @@ internal class RequestHelper private constructor() {
                 //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
                 if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
                     downloadListener.onStart()
+                    val handler = Handler(Looper.getMainLooper())
                     Thread(Runnable {
                         var ips: InputStream? = null
                         var fos: FileOutputStream? = null
@@ -223,7 +223,7 @@ internal class RequestHelper private constructor() {
                                 val progress = (sum * 100 / total).toInt()
                                 //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
                                 if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
-                                    mHandler.post { downloadListener.onProgress(progress) }
+                                    handler.post { downloadListener.onProgress(progress) }
                                 } else {
                                     break
                                 }
@@ -232,20 +232,20 @@ internal class RequestHelper private constructor() {
                             fos.flush()
                             //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
                             if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
-                                mHandler.post { downloadListener.onDone(filePath) }
+                                handler.post { downloadListener.onDone(filePath) }
                             }
                         } catch (e: Exception) {
-                            downLoadFileFail(reTag, e, downloadListener)
+                            downLoadFileFail(reTag, e, downloadListener, handler)
                         } finally {
                             try {
                                 ips?.close()
                             } catch (e: IOException) {
-                                downLoadFileFail(reTag, e, downloadListener)
+                                downLoadFileFail(reTag, e, downloadListener, handler)
                             }
                             try {
                                 fos?.close()
                             } catch (e: IOException) {
-                                downLoadFileFail(reTag, e, downloadListener)
+                                downLoadFileFail(reTag, e, downloadListener, handler)
                             }
                         }
                     }).start()
@@ -260,10 +260,15 @@ internal class RequestHelper private constructor() {
         })
     }
 
-    private fun downLoadFileFail(reTag: String, e: Exception, downloadListener: DownLoadListener) {
+    private fun downLoadFileFail(
+        reTag: String,
+        e: Exception,
+        downloadListener: DownLoadListener,
+        handler: Handler
+    ) {
         //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
         if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
-            mHandler.post { downloadListener.onFail("下载文件失败：" + e.message) }
+            handler.post { downloadListener.onFail("下载文件失败：" + e.message) }
         }
     }
 
