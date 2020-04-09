@@ -47,8 +47,8 @@ ext {
     //权限申请 https://github.com/tbruyelle/RxPermissions
     rxpermissions = 'com.github.tbruyelle:rxpermissions:0.10.2'
     //图片加载
-    glide = 'com.github.bumptech.glide:glide:4.10.0'
-    glidecompiler = 'com.github.bumptech.glide:compiler:4.10.0'
+    glide = 'com.github.bumptech.glide:glide:4.11.0'
+    glidecompiler = 'com.github.bumptech.glide:compiler:4.11.0'
     okhttp_integration = 'com.github.bumptech.glide:okhttp3-integration:4.10.0'
     //下拉刷新 https://github.com/scwang90/SmartRefreshLayout
     smartrefreshlayout = 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
