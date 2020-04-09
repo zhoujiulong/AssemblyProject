@@ -1,5 +1,7 @@
 package com.zhoujiulong.baselib.http
 
+import android.os.Handler
+import android.os.Looper
 import com.zhoujiulong.baselib.app.ActivityFragmentManager
 import com.zhoujiulong.baselib.http.listener.DownLoadListener
 import com.zhoujiulong.baselib.http.listener.OnTokenInvalidListener
@@ -9,11 +11,6 @@ import com.zhoujiulong.baselib.http.other.RequestErrorType
 import com.zhoujiulong.baselib.http.response.BaseResponse
 import com.zhoujiulong.baselib.utils.ContextUtil
 import com.zhoujiulong.baselib.utils.NetworkUtil
-import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +28,7 @@ import java.io.InputStream
  */
 internal class RequestHelper private constructor() {
     private var mOnTokenInvalidListener: OnTokenInvalidListener? = null
+    private val mHandler by lazy { Handler(Looper.getMainLooper()) }
 
     companion object {
 
@@ -165,6 +163,7 @@ internal class RequestHelper private constructor() {
         })
     }
 
+
     /**
      * 发送下载网络请求
      *
@@ -205,62 +204,52 @@ internal class RequestHelper private constructor() {
                 var file = File(saveFile, fileName)
                 if (file.exists()) file = File(saveFile, "${System.currentTimeMillis()}${fileName}")
                 val filePath = file.absolutePath
-                downloadListener.onStart()
-                val disposable = object : DisposableObserver<Int>() {
-                    override fun onNext(t: Int) {
-                        downloadListener.onProgress(t)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        downloadListener.onFail("下载文件失败：" + e.message)
-                        RequestManager.instance.removeDisposable(reTag, this)
-                    }
-
-                    override fun onComplete() {
-                        downloadListener.onDone(filePath)
-                        RequestManager.instance.removeDisposable(reTag, this)
-                    }
+                //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
+                if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
+                    downloadListener.onStart()
+                    Thread(Runnable {
+                        var ips: InputStream? = null
+                        var fos: FileOutputStream? = null
+                        try {
+                            ips = response.body()!!.byteStream()
+                            val total = response.body()!!.contentLength()
+                            fos = FileOutputStream(filePath)
+                            var sum: Long = 0
+                            val buf = ByteArray(2048)
+                            var len: Int = ips!!.read(buf)
+                            while (len != -1) {
+                                fos.write(buf, 0, len)
+                                sum += len.toLong()
+                                val progress = (sum * 100 / total).toInt()
+                                //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
+                                if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
+                                    mHandler.post { downloadListener.onProgress(progress) }
+                                } else {
+                                    break
+                                }
+                                len = ips.read(buf)
+                            }
+                            fos.flush()
+                            //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
+                            if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
+                                mHandler.post { downloadListener.onDone(filePath) }
+                            }
+                        } catch (e: Exception) {
+                            downLoadFileFail(reTag, e, downloadListener)
+                        } finally {
+                            try {
+                                ips?.close()
+                            } catch (e: IOException) {
+                                downLoadFileFail(reTag, e, downloadListener)
+                            }
+                            try {
+                                fos?.close()
+                            } catch (e: IOException) {
+                                downLoadFileFail(reTag, e, downloadListener)
+                            }
+                        }
+                    }).start()
                 }
-                Observable.create(ObservableOnSubscribe<Int> { emitter ->
-                    var ips: InputStream? = null
-                    var fos: FileOutputStream? = null
-                    try {
-                        ips = response.body()!!.byteStream()
-                        val total = response.body()!!.contentLength()
-                        fos = FileOutputStream(filePath)
-                        var sum: Long = 0
-                        val buf = ByteArray(2048)
-                        var len: Int = ips!!.read(buf)
-                        while (len != -1) {
-                            fos.write(buf, 0, len)
-                            sum += len.toLong()
-                            val progress = (sum * 100 / total).toInt()
-                            emitter.onNext(progress)
-                            len = ips.read(buf)
-                        }
-                        fos.flush()
-                        emitter.onComplete()
-                    } catch (e: Exception) {
-                        emitter.onError(e)
-                    } finally {
-                        try {
-                            ips?.close()
-                        } catch (e: IOException) {
-                            emitter.onError(e)
-                        }
-
-                        try {
-                            fos?.close()
-                        } catch (e: IOException) {
-                            emitter.onError(e)
-                        }
-
-                    }
-                }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .onTerminateDetach()//切断与上游的引用关系
-                    .subscribe(disposable)
-                RequestManager.instance.addDisposable(reTag, disposable)
             }
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
@@ -271,6 +260,12 @@ internal class RequestHelper private constructor() {
         })
     }
 
+    private fun downLoadFileFail(reTag: String, e: Exception, downloadListener: DownLoadListener) {
+        //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
+        if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
+            mHandler.post { downloadListener.onFail("下载文件失败：" + e.message) }
+        }
+    }
 
 }
 

@@ -1,7 +1,5 @@
 package com.zhoujiulong.baselib.http
 
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import retrofit2.Call
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
@@ -22,10 +20,6 @@ internal class RequestManager private constructor() {
          * 保存没有完成的请求
          */
         private val mCallMap = ConcurrentHashMap<String, ArrayList<Call<*>>>()
-        /**
-         * 文件下载订阅
-         */
-        private val mDisposableMap = ConcurrentHashMap<String, CompositeDisposable>()
 
         val instance: RequestManager
             get() {
@@ -63,11 +57,6 @@ internal class RequestManager private constructor() {
             }
             mCallMap.remove(reTag)
         }
-        if (mDisposableMap.containsKey(reTag) && mDisposableMap[reTag] != null) {
-            val disposable = mDisposableMap[reTag]
-            disposable?.dispose()
-            mDisposableMap.remove(reTag)
-        }
     }
 
     /**
@@ -99,34 +88,6 @@ internal class RequestManager private constructor() {
             }
         }
     }
-
-    /**
-     * 添加文件下载的订阅
-     */
-    @Synchronized
-    fun addDisposable(reTag: String, disposable: Disposable) {
-        var compositeDisposable: CompositeDisposable? = null
-        if (mDisposableMap.containsKey(reTag) && mDisposableMap[reTag] != null) {
-            compositeDisposable = mDisposableMap[reTag]
-        }
-        if (compositeDisposable == null) {
-            compositeDisposable = CompositeDisposable()
-            mDisposableMap[reTag] = compositeDisposable
-        }
-        compositeDisposable.add(disposable)
-    }
-
-    /**
-     * 移除文件下载的订阅
-     */
-    @Synchronized
-    fun removeDisposable(reTag: String, disposable: Disposable) {
-        if (mDisposableMap.containsKey(reTag) && mDisposableMap[reTag] != null) {
-            val compositeDisposable = mDisposableMap[reTag]
-            compositeDisposable?.remove(disposable)
-        }
-    }
-
 
 }
 
