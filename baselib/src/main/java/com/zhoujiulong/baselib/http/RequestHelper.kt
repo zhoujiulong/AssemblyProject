@@ -59,11 +59,11 @@ internal class RequestHelper private constructor() {
     /**
      * 发送请求
      *
-     * @param tag      请求标记，用于取消请求用
+     * @param reTag      请求标记，用于取消请求用
      * @param listener 请求完成后的回调
      * @param <T>      请求返回的数据对应的类型，第一层必须继承 BaseResponse
     </T> */
-    fun <T> sendRequest(tag: String, call: Call<T>, listener: RequestListener<T>) {
+    fun <T> sendRequest(reTag: String, call: Call<T>, listener: RequestListener<T>) {
         if (!NetworkUtil.isNetworkAvailable(ContextUtil.getContext())) {
             listener.requestError(
                 null,
@@ -73,13 +73,13 @@ internal class RequestHelper private constructor() {
             )
             return
         }
-        RequestManager.instance.addCall(tag, call)
+        RequestManager.instance.addCall(reTag, call)
         call.enqueue(object : Callback<T> {
             //异步请求
             override fun onResponse(call: Call<T>, response: Response<T>) {
                 //判断请求是否取消了，如果取消了就不再往下执行
-                if (!RequestManager.instance.hasRequest(tag)) return
-                RequestManager.instance.removeCall(tag, call)
+                if (!RequestManager.instance.hasRequest(reTag)) return
+                RequestManager.instance.removeCall(reTag, call)
                 val code = response.code()
                 if (code != 200) {//接口请求失败
                     if (code == 502 || code == 404) {
@@ -112,7 +112,7 @@ internal class RequestHelper private constructor() {
                         val baseResponse = body as BaseResponse
                         if (CodeConstant.REQUEST_SUCCESS_CODE == baseResponse.code) {//获取数据正常
                             //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-                            if (ActivityFragmentManager.getInstance().isReTagExist(tag)) {
+                            if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
                                 listener.requestSuccess(response.body() as T)
                             }
                             //{"message":"未登录或token失效","code":1002}
@@ -153,8 +153,8 @@ internal class RequestHelper private constructor() {
             }
 
             override fun onFailure(call: Call<T>, t: Throwable) {
-                if (!RequestManager.instance.hasRequest(tag)) return
-                RequestManager.instance.removeCall(tag, call)
+                if (!RequestManager.instance.hasRequest(reTag)) return
+                RequestManager.instance.removeCall(reTag, call)
                 listener.requestError(
                     null,
                     RequestErrorType.COMMON_ERROR,
@@ -168,23 +168,23 @@ internal class RequestHelper private constructor() {
     /**
      * 发送下载网络请求
      *
-     * @param tag              请求标记，用于取消请求用
+     * @param reTag              请求标记，用于取消请求用
      * @param downLoadFilePath 下载文件保存路径
      * @param downloadListener 下载回调
      */
     fun sendDownloadRequest(
-        tag: String, call: retrofit2.Call<ResponseBody>, downLoadFilePath: String,
+        reTag: String, call: Call<ResponseBody>, downLoadFilePath: String,
         fileName: String, downloadListener: DownLoadListener
     ) {
         if (!NetworkUtil.isNetworkAvailable(ContextUtil.getContext())) {
             downloadListener.onFail("网络连接失败")
             return
         }
-        RequestManager.instance.addCall(tag, call)
+        RequestManager.instance.addCall(reTag, call)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (!RequestManager.instance.hasRequest(tag)) return
-                RequestManager.instance.removeCall(tag, call)
+                if (!RequestManager.instance.hasRequest(reTag)) return
+                RequestManager.instance.removeCall(reTag, call)
                 if (response.code() != 200) {
                     if (response.code() == 502 || response.code() == 404) {
                         downloadListener.onFail(response.code().toString() + "服务器异常，请稍后重试")
@@ -211,12 +211,12 @@ internal class RequestHelper private constructor() {
 
                     override fun onError(e: Throwable) {
                         downloadListener.onFail("下载文件失败：" + e.message)
-                        RequestManager.instance.removeDisposable(tag, this)
+                        RequestManager.instance.removeDisposable(reTag, this)
                     }
 
                     override fun onComplete() {
                         downloadListener.onDone(file)
-                        RequestManager.instance.removeDisposable(tag, this)
+                        RequestManager.instance.removeDisposable(reTag, this)
                     }
                 }
                 Observable.create(ObservableOnSubscribe<Int> { emitter ->
@@ -258,12 +258,12 @@ internal class RequestHelper private constructor() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .onTerminateDetach()//切断与上游的引用关系
                     .subscribe(disposable)
-                RequestManager.instance.addDisposable(tag, disposable)
+                RequestManager.instance.addDisposable(reTag, disposable)
             }
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
-                if (!RequestManager.instance.hasRequest(tag)) return
-                RequestManager.instance.removeCall(tag, call)
+                if (!RequestManager.instance.hasRequest(reTag)) return
+                RequestManager.instance.removeCall(reTag, call)
                 downloadListener.onFail("下载失败" + throwable.message)
             }
         })

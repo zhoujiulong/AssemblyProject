@@ -23,7 +23,7 @@ object HttpUtil {
         get() = ServiceManager.instance.baseUrl
 
     /**
-     * 设置 Token 失效回调，全局只调用一次，在 Application 中设置
+     * 设置 Token 失效回调，全局只调用一次，建议在 Application 中设置
      */
     fun initTokenInvalidListener(onTokenInvalidListener: OnTokenInvalidListener) {
         RequestHelper.instance.setOnTokenInvalidListener(onTokenInvalidListener)
@@ -32,8 +32,8 @@ object HttpUtil {
     /**
      * 添加请求头部拦截器
      */
-    fun addHeaderInterceptor(headerInterceptor: Interceptor) {
-        ServiceManager.instance.setHeaderInterceptor(headerInterceptor)
+    fun addInterceptor(interceptor: Interceptor) {
+        ServiceManager.instance.addInterceptor(interceptor)
     }
 
     /**
@@ -64,34 +64,34 @@ object HttpUtil {
     /**
      * 发送请求
      *
-     * @param tag      请求标记，用于取消请求用
+     * @param reTag      请求标记，用于取消请求用
      * @param listener 请求完成后的回调
      * @param <T>      请求返回的数据对应的类型，第一层必须继承 BaseResponse
     </T> */
-    fun <T> sendRequest(tag: String, call: retrofit2.Call<T>, listener: RequestListener<T>) {
-        RequestHelper.instance.sendRequest(tag, call, listener)
+    fun <T> sendRequest(reTag: String, call: retrofit2.Call<T>, listener: RequestListener<T>) {
+        RequestHelper.instance.sendRequest(reTag, call, listener)
     }
 
     /**
      * 发送下载网络请求
      *
-     * @param tag              请求标记，用于取消请求用
+     * @param reTag              请求标记，用于取消请求用
      * @param downLoadFilePath 下载文件保存路径
      * @param downloadListener 下载回调
      */
     fun sendDownloadRequest(
-        tag: String, call: retrofit2.Call<ResponseBody>, downLoadFilePath: String,
+        reTag: String, call: retrofit2.Call<ResponseBody>, downLoadFilePath: String,
         fileName: String, downloadListener: DownLoadListener
     ) {
         RequestHelper.instance
-            .sendDownloadRequest(tag, call, downLoadFilePath, fileName, downloadListener)
+            .sendDownloadRequest(reTag, call, downLoadFilePath, fileName, downloadListener)
     }
 
     /**
-     * 根据请求的标记 tag 取消请求和 Observer
+     * 根据请求的标记 reTag 取消请求和 Observer
      */
-    fun cancelWithTag(tag: String) {
-        RequestManager.instance.cancelRequestWithTag(tag)
+    fun cancelWithTag(reTag: String) {
+        RequestManager.instance.cancelRequestWithTag(reTag)
     }
 }
 

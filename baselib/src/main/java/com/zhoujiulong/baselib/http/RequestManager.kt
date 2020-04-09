@@ -44,29 +44,29 @@ internal class RequestManager private constructor() {
      * 是否还有请求
      */
     @Synchronized
-    fun hasRequest(tag: String): Boolean {
-        return mCallMap.containsKey(tag) && mCallMap[tag]?.size ?: -1 > 0
+    fun hasRequest(reTag: String): Boolean {
+        return mCallMap.containsKey(reTag) && mCallMap[reTag]?.size ?: -1 > 0
     }
 
     /**
-     * 根据请求的标记 tag 取消请求
+     * 根据请求的标记 reTag 取消请求
      */
     @Synchronized
-    fun cancelRequestWithTag(tag: String) {
-        if (mCallMap.containsKey(tag) && mCallMap[tag] != null) {
-            val callList = mCallMap[tag]
+    fun cancelRequestWithTag(reTag: String) {
+        if (mCallMap.containsKey(reTag) && mCallMap[reTag] != null) {
+            val callList = mCallMap[reTag]
             if (callList != null && callList.isNotEmpty()) {
                 for (call in callList) {
                     if (!call.isCanceled) call.cancel()
                 }
                 callList.clear()
             }
-            mCallMap.remove(tag)
+            mCallMap.remove(reTag)
         }
-        if (mDisposableMap.containsKey(tag) && mDisposableMap[tag] != null) {
-            val disposable = mDisposableMap[tag]
+        if (mDisposableMap.containsKey(reTag) && mDisposableMap[reTag] != null) {
+            val disposable = mDisposableMap[reTag]
             disposable?.dispose()
-            mDisposableMap.remove(tag)
+            mDisposableMap.remove(reTag)
         }
     }
 
@@ -74,13 +74,13 @@ internal class RequestManager private constructor() {
      * 发送请求，将请求添加到 map 中进行保存
      */
     @Synchronized
-    fun addCall(tag: String, call: Call<*>) {
-        if (mCallMap.containsKey(tag) && mCallMap[tag] != null) {
-            mCallMap[tag]!!.add(call)
+    fun addCall(reTag: String, call: Call<*>) {
+        if (mCallMap.containsKey(reTag) && mCallMap[reTag] != null) {
+            mCallMap[reTag]!!.add(call)
         } else {
             val callList = ArrayList<Call<*>>()
             callList.add(call)
-            mCallMap[tag] = callList
+            mCallMap[reTag] = callList
         }
     }
 
@@ -88,14 +88,14 @@ internal class RequestManager private constructor() {
      * 请求结束后，将请求从 map 中移除
      */
     @Synchronized
-    fun removeCall(tag: String, call: Call<*>) {
-        if (mCallMap.containsKey(tag) && mCallMap[tag] != null) {
-            val callList = mCallMap[tag]
+    fun removeCall(reTag: String, call: Call<*>) {
+        if (mCallMap.containsKey(reTag) && mCallMap[reTag] != null) {
+            val callList = mCallMap[reTag]
             if (callList!!.contains(call)) {
                 callList.remove(call)
             }
             if (callList.size == 0) {
-                mCallMap.remove(tag)
+                mCallMap.remove(reTag)
             }
         }
     }
@@ -104,14 +104,14 @@ internal class RequestManager private constructor() {
      * 添加文件下载的订阅
      */
     @Synchronized
-    fun addDisposable(tag: String, disposable: Disposable) {
+    fun addDisposable(reTag: String, disposable: Disposable) {
         var compositeDisposable: CompositeDisposable? = null
-        if (mDisposableMap.containsKey(tag) && mDisposableMap[tag] != null) {
-            compositeDisposable = mDisposableMap[tag]
+        if (mDisposableMap.containsKey(reTag) && mDisposableMap[reTag] != null) {
+            compositeDisposable = mDisposableMap[reTag]
         }
         if (compositeDisposable == null) {
             compositeDisposable = CompositeDisposable()
-            mDisposableMap[tag] = compositeDisposable
+            mDisposableMap[reTag] = compositeDisposable
         }
         compositeDisposable.add(disposable)
     }
@@ -120,9 +120,9 @@ internal class RequestManager private constructor() {
      * 移除文件下载的订阅
      */
     @Synchronized
-    fun removeDisposable(tag: String, disposable: Disposable) {
-        if (mDisposableMap.containsKey(tag) && mDisposableMap[tag] != null) {
-            val compositeDisposable = mDisposableMap[tag]
+    fun removeDisposable(reTag: String, disposable: Disposable) {
+        if (mDisposableMap.containsKey(reTag) && mDisposableMap[reTag] != null) {
+            val compositeDisposable = mDisposableMap[reTag]
             compositeDisposable?.remove(disposable)
         }
     }

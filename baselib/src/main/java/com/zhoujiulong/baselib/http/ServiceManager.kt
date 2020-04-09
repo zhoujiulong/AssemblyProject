@@ -21,8 +21,9 @@ internal class ServiceManager private constructor() {
 
     val baseUrl: String = BuildConfig.BASE_URL
     private val mIsDebug: Boolean = BuildConfig.DEBUG_MODE
-    private var mHeaderInterceptor: Interceptor? = null
+    private var mHeaderInterceptor: ArrayList<Interceptor> = arrayListOf()
     private val mRetrofits: MutableMap<String, Retrofit> = HashMap()
+    private val mRetrofitsKey: LinkedList<String> = LinkedList()
 
     companion object {
 
@@ -41,8 +42,8 @@ internal class ServiceManager private constructor() {
             }
     }
 
-    fun setHeaderInterceptor(headerInterceptor: Interceptor) {
-        mHeaderInterceptor = headerInterceptor
+    fun addInterceptor(headerInterceptor: Interceptor) {
+        mHeaderInterceptor.add(headerInterceptor)
     }
 
     /**
@@ -68,12 +69,12 @@ internal class ServiceManager private constructor() {
     @Synchronized
     fun <T> getService(callClass: Class<T>, baseUrl: String, vararg timeOuts: TimeOut): T {
         val key =
-            StringBuilder().append(if (mHeaderInterceptor == null) "" else mHeaderInterceptor!!.hashCode())
+            StringBuilder().append(mHeaderInterceptor.size)
                 .append(mIsDebug).append(baseUrl).append(JsonUtil.object2String(timeOuts))
                 .toString()
         var retrofit: Retrofit? = null
         if (mRetrofits.containsKey(key)) retrofit = mRetrofits[key]
-        if (retrofit == null) {
+        if (retrofit == null) {//缓存中没有，创建新的
             var readTimeOut = 15L
             var writeTimeOut = 15L
             var connectTimeOut = 10L
@@ -88,9 +89,7 @@ internal class ServiceManager private constructor() {
                 }
             }
             val builder = OkHttpClient.Builder()
-            if (mHeaderInterceptor != null) {
-                builder.addInterceptor(mHeaderInterceptor!!)
-            }
+            mHeaderInterceptor.forEach { builder.addInterceptor(it) }
             if (mIsDebug) {
                 //配置消息头和打印日志等
                 val loggingInterceptor = HttpLoggingInterceptor()
@@ -109,6 +108,19 @@ internal class ServiceManager private constructor() {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             mRetrofits[key] = retrofit!!
+            mRetrofitsKey.add(key)
+            //只缓存五个，超过的移除掉
+            if (mRetrofitsKey.size > 5) {
+                val tempKey = mRetrofitsKey.removeFirst()
+                if (mRetrofits.containsKey(tempKey)) {
+                    mRetrofits.remove(tempKey)
+                }
+            }
+        } else {//缓存中有，对缓存的 Retrofit 进行重排序,将最近使用的放到最后
+            if (mRetrofitsKey.contains(key)) {
+                mRetrofitsKey.remove(key)
+                mRetrofitsKey.add(key)
+            }
         }
         return retrofit.create(callClass)
     }
