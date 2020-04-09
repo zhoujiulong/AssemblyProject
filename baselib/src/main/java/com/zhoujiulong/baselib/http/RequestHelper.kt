@@ -202,7 +202,9 @@ internal class RequestHelper private constructor() {
                     if (!mkDirSuccess) downloadListener.onFail("创建本地的文件夹失败")
                     return
                 }
-                val file = File(saveFile, fileName)
+                var file = File(saveFile, fileName)
+                if (file.exists()) file = File(saveFile, "${System.currentTimeMillis()}${fileName}")
+                val filePath = file.absolutePath
                 downloadListener.onStart()
                 val disposable = object : DisposableObserver<Int>() {
                     override fun onNext(t: Int) {
@@ -215,7 +217,7 @@ internal class RequestHelper private constructor() {
                     }
 
                     override fun onComplete() {
-                        downloadListener.onDone(file)
+                        downloadListener.onDone(filePath)
                         RequestManager.instance.removeDisposable(reTag, this)
                     }
                 }
@@ -225,14 +227,14 @@ internal class RequestHelper private constructor() {
                     try {
                         ips = response.body()!!.byteStream()
                         val total = response.body()!!.contentLength()
-                        fos = FileOutputStream(file)
+                        fos = FileOutputStream(filePath)
                         var sum: Long = 0
                         val buf = ByteArray(2048)
                         var len: Int = ips!!.read(buf)
                         while (len != -1) {
                             fos.write(buf, 0, len)
                             sum += len.toLong()
-                            val progress = (sum * 1.0f / total * 100).toInt()
+                            val progress = (sum * 100 / total).toInt()
                             emitter.onNext(progress)
                             len = ips.read(buf)
                         }

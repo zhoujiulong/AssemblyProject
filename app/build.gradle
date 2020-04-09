@@ -40,9 +40,10 @@ android {
             v2SigningEnabled true
         }
         debug {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('debug.keystore')
+            storePassword 'sz123456'
+            keyAlias 'zhoujiulong'
+            keyPassword 'sz123456'
+            storeFile file('release.jks')
             v2SigningEnabled true
         }
     }
@@ -55,8 +56,8 @@ android {
         }
         debug {
             //如果需要debug断点调试，以下两项需设置为false
-            minifyEnabled true//debug开启混淆,防止添加依赖没添加混淆，发布release包时报错
-            shrinkResources true//如果minifyEnabled设置为false，此项也需设置为false
+            minifyEnabled false//debug开启混淆,防止添加依赖没添加混淆，发布release包时报错
+            shrinkResources false//如果minifyEnabled设置为false，此项也需设置为false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro'
         }

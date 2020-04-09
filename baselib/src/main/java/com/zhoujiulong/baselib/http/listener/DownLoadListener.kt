@@ -14,24 +14,22 @@ abstract class DownLoadListener {
     /**
      * 下载开始
      */
-    fun onStart() {}
+    open fun onStart() {}
 
     /**
      * 下载进度
      */
-    fun onProgress(progress: Int) {
+    open fun onProgress(progress: Int) {}
 
-    }
+    /**
+     * 下载完成的文件
+     */
+    abstract fun onDone(fileAbsPath: String)
 
     /**
      * 下载失败
      */
     abstract fun onFail(errorInfo: String)
-
-    /**
-     * 下载完成的文件
-     */
-    abstract fun onDone(file: File)
 
 }
 
