@@ -1,4 +1,4 @@
-package com.zhoujiulong.baselib.base
+package com.zhoujiulong.baselib.app
 
 import android.app.Application
 import android.content.Context

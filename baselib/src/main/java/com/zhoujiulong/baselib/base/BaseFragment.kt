@@ -9,10 +9,6 @@ abstract class BaseFragment<T : BasePresenter<*, *>> : SimpleFragment(),
     BaseView {
 
     /**
-     * 網絡請求標記tag
-     */
-    protected var ReTag = System.currentTimeMillis().toString()
-    /**
      * 用于添加rx的监听的在onDestroy中记得关闭不然会内存泄漏。
      */
     private var mCompositeDisposable: CompositeDisposable? = null
@@ -43,7 +39,7 @@ abstract class BaseFragment<T : BasePresenter<*, *>> : SimpleFragment(),
     }
 
     override fun showLoading() {
-        if (mLoadingDialog == null && mContext!=null) {
+        if (mLoadingDialog == null && mContext != null) {
             mLoadingDialog = LoadingDialog.build(mContext!!)
         }
         mLoadingDialog?.show()

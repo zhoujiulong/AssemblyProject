@@ -18,10 +18,10 @@ class AssemblyAMainActivity : BaseActivity<EmptyPresenter>() {
 
     override fun getLayoutId(): Int = R.layout.assemblya_activity_assembly_a_main
 
-    override fun initView() {
+    override fun initPresenter() {
     }
 
-    override fun initPresenter() {
+    override fun initView() {
     }
 
     override fun initListener() {

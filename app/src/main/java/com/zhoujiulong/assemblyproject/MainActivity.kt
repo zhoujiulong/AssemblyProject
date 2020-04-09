@@ -11,10 +11,10 @@ class MainActivity : BaseActivity<EmptyPresenter>() {
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
-    override fun initView() {
+    override fun initPresenter() {
     }
 
-    override fun initPresenter() {
+    override fun initView() {
     }
 
     override fun initListener() {

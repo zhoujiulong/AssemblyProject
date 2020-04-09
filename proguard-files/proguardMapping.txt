@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 16
-# pg_map_id: 69b4ffd
+# pg_map_id: 9e6daf8
 android.support.v4.app.INotificationSideChannel$Stub -> android.support.v4.app.INotificationSideChannel$Stub:
     20:22:void <init>() -> <init>
     40:40:android.os.IBinder asBinder() -> asBinder
@@ -1748,8 +1748,8 @@ androidx.appcompat.app.AlertDialog$Builder -> androidx.appcompat.app.c$a:
     983:994:androidx.appcompat.app.AlertDialog create() -> a
     358:358:android.content.Context getContext() -> b
 androidx.appcompat.app.AppCompatActivity -> androidx.appcompat.app.AppCompatActivity:
-    android.content.res.Resources mResources -> u
-    androidx.appcompat.app.AppCompatDelegate mDelegate -> t
+    android.content.res.Resources mResources -> t
+    androidx.appcompat.app.AppCompatDelegate mDelegate -> s
     77:78:void <init>() -> <init>
     280:280:void onSupportActionModeStarted(androidx.appcompat.view.ActionMode) -> a
     305:305:androidx.appcompat.view.ActionMode onWindowStartingSupportActionMode(androidx.appcompat.view.ActionMode$Callback) -> a
@@ -1761,7 +1761,7 @@ androidx.appcompat.app.AppCompatActivity -> androidx.appcompat.app.AppCompatActi
     291:291:void onSupportActionModeFinished(androidx.appcompat.view.ActionMode) -> b
     390:390:void onPrepareSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder) -> b
     471:471:boolean supportShouldUpRecreateTask(android.content.Intent) -> b
-    623:623:void onNightModeChanged(int) -> c
+    623:623:void onNightModeChanged(int) -> b
     609:614:void closeOptionsMenu() -> closeOptionsMenu
     552:558:boolean dispatchKeyEvent(android.view.KeyEvent) -> dispatchKeyEvent
     454:454:android.content.Intent getSupportParentActivityIntent() -> e
@@ -6837,14 +6837,13 @@ androidx.collection.SparseArrayCompat -> a.b.h:
     460:487:void append(int,java.lang.Object) -> a
     118:121:java.lang.Object get(int,java.lang.Object) -> b
     340:344:int size() -> b
-    401:405:int indexOfKey(int) -> b
+    361:365:int keyAt(int) -> b
+    139:147:void remove(int) -> c
     230:253:void gc() -> c
     261:305:void put(int,java.lang.Object) -> c
-    361:365:int keyAt(int) -> c
     50:50:java.lang.Object clone() -> clone
     88:92:androidx.collection.SparseArrayCompat clone() -> clone
-    139:147:void remove(int) -> d
-    375:379:java.lang.Object valueAt(int) -> e
+    375:379:java.lang.Object valueAt(int) -> d
     498:519:java.lang.String toString() -> toString
 androidx.coordinatorlayout.R$attr -> androidx.coordinatorlayout.R$attr:
     13:13:void <init>() -> <init>
@@ -7132,21 +7131,11 @@ androidx.core.app.ActivityCompat -> androidx.core.app.a:
     169:169:androidx.core.app.ActivityCompat$PermissionCompatDelegate getPermissionCompatDelegate() -> a
     233:238:void startActivityForResult(android.app.Activity,android.content.Intent,int,android.os.Bundle) -> a
     287:292:void finishAffinity(android.app.Activity) -> a
-    491:524:void requestPermissions(android.app.Activity,java.lang.String[],int) -> a
-    548:551:boolean shouldShowRequestPermissionRationale(android.app.Activity,java.lang.String) -> a
     577:585:void recreate(android.app.Activity) -> b
-androidx.core.app.ActivityCompat$1 -> androidx.core.app.a$a:
-    android.app.Activity val$activity -> d
-    int val$requestCode -> e
-    java.lang.String[] val$permissions -> c
-    505:505:void <init>(java.lang.String[],android.app.Activity,int) -> <init>
-    508:521:void run() -> run
-androidx.core.app.ActivityCompat$OnRequestPermissionsResultCallback -> androidx.core.app.a$b:
-androidx.core.app.ActivityCompat$PermissionCompatDelegate -> androidx.core.app.a$c:
+androidx.core.app.ActivityCompat$OnRequestPermissionsResultCallback -> androidx.core.app.a$a:
+androidx.core.app.ActivityCompat$PermissionCompatDelegate -> androidx.core.app.a$b:
     boolean onActivityResult(android.app.Activity,int,int,android.content.Intent) -> a
-    boolean requestPermissions(android.app.Activity,java.lang.String[],int) -> a
-androidx.core.app.ActivityCompat$RequestPermissionsRequestCodeValidator -> androidx.core.app.a$d:
-    void validateRequestPermissionsRequestCode(int) -> a
+androidx.core.app.ActivityCompat$RequestPermissionsRequestCodeValidator -> androidx.core.app.a$c:
 androidx.core.app.ActivityOptionsCompat -> androidx.core.app.b:
     android.os.Bundle toBundle() -> a
 androidx.core.app.ActivityRecreator -> androidx.core.app.c:
@@ -9231,11 +9220,10 @@ androidx.fragment.app.BackStackRecord -> androidx.fragment.app.a:
     451:502:void executePopOps(boolean) -> b
     607:629:androidx.fragment.app.Fragment trackAddedFragmentsInPop(java.util.ArrayList,androidx.fragment.app.Fragment) -> b
     652:653:boolean isFragmentPostponed(androidx.fragment.app.FragmentTransaction$Op) -> b
-    292:294:void commitNow() -> c
-    389:441:void executeOps() -> e
-    660:660:java.lang.String getName() -> f
-    633:639:boolean isPostponed() -> g
-    272:278:void runOnCommitRunnables() -> h
+    389:441:void executeOps() -> c
+    660:660:java.lang.String getName() -> d
+    633:639:boolean isPostponed() -> e
+    272:278:void runOnCommitRunnables() -> f
     43:55:java.lang.String toString() -> toString
 androidx.fragment.app.BackStackState -> androidx.fragment.app.BackStackState:
     java.lang.String mName -> i
@@ -9347,7 +9335,6 @@ androidx.fragment.app.Fragment -> androidx.fragment.app.Fragment:
     521:530:androidx.fragment.app.Fragment instantiate(android.content.Context,java.lang.String,android.os.Bundle) -> a
     1044:1044:void onHiddenChanged(boolean) -> a
     1238:1238:void onActivityResult(int,int,android.content.Intent) -> a
-    1314:1315:void requestPermissions(java.lang.String[],int) -> a
     1340:1340:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> a
     1430:1431:android.view.LayoutInflater getLayoutInflater(android.os.Bundle) -> a
     1484:1490:void onInflate(android.content.Context,android.util.AttributeSet,android.os.Bundle) -> a
@@ -9370,7 +9357,6 @@ androidx.fragment.app.Fragment -> androidx.fragment.app.Fragment:
     2938:2939:void setAnimatingAway(android.view.View) -> a
     2942:2943:void setAnimator(android.animation.Animator) -> a
     2667:2675:void performPrimaryNavigationFragmentChanged() -> a0
-    1363:1366:boolean shouldShowRequestPermissionRationale(java.lang.String) -> b
     1581:1581:android.animation.Animator onCreateAnimator(int,boolean,int) -> b
     1720:1721:void onActivityCreated(android.os.Bundle) -> b
     1790:1790:void onMultiWindowModeChanged(boolean) -> b
@@ -9405,7 +9391,6 @@ androidx.fragment.app.Fragment -> androidx.fragment.app.Fragment:
     2616:2621:void performActivityCreated(android.os.Bundle) -> g
     2978:2979:void setHideReplaced(boolean) -> g
     1697:1699:android.view.View requireView() -> g0
-    1060:1070:void setRetainInstance(boolean) -> h
     2340:2340:boolean getAllowReturnTransitionOverlap() -> h
     2582:2589:void performCreate(android.os.Bundle) -> h
     2431:2443:void startPostponedEnterTransition() -> h0
@@ -9500,22 +9485,18 @@ androidx.fragment.app.FragmentActivity -> androidx.fragment.app.FragmentActivity
     androidx.lifecycle.LifecycleRegistry mFragmentLifecycleRegistry -> k
     boolean mResumed -> m
     boolean mStopped -> n
-    boolean mRequestedPermissionsFromFragment -> o
+    boolean mStartedIntentSenderFromFragment -> o
     androidx.fragment.app.FragmentController mFragments -> j
-    boolean mStartedIntentSenderFromFragment -> p
-    androidx.collection.SparseArrayCompat mPendingFragmentActivityResults -> s
+    boolean mStartedActivityFromFragment -> p
     boolean mCreated -> l
-    boolean mStartedActivityFromFragment -> q
-    int mNextCandidateRequestIndex -> r
+    androidx.collection.SparseArrayCompat mPendingFragmentActivityResults -> r
+    int mNextCandidateRequestIndex -> q
     127:128:void <init>() -> <init>
     357:357:android.view.View dispatchFragmentsOnCreateView(android.view.View,java.lang.String,android.content.Context,android.util.AttributeSet) -> a
     502:502:boolean onPrepareOptionsPanel(android.view.View,android.view.Menu) -> a
     628:628:void onAttachFragment(androidx.fragment.app.Fragment) -> a
-    728:732:void validateRequestPermissionsRequestCode(int) -> a
-    853:865:void requestPermissionsFromFragment(androidx.fragment.app.Fragment,java.lang.String[],int) -> a
+    714:715:void checkForValidRequestCode(int) -> a
     995:1011:boolean markState(androidx.fragment.app.FragmentManager,androidx.lifecycle.Lifecycle$State) -> a
-    714:715:void checkForValidRequestCode(int) -> b
-    830:831:int allocateRequestIndex(androidx.fragment.app.Fragment) -> b
     599:613:void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> dump
     636:636:androidx.fragment.app.FragmentManager getSupportFragmentManager() -> g
     478:480:void onResumeFragments() -> h
@@ -9552,8 +9533,6 @@ androidx.fragment.app.FragmentActivity$HostCallbacks -> androidx.fragment.app.Fr
     871:873:void <init>(androidx.fragment.app.FragmentActivity) -> <init>
     882:882:androidx.lifecycle.Lifecycle getLifecycle() -> a
     900:901:void onDump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
-    948:950:void onRequestPermissionsFromFragment(androidx.fragment.app.Fragment,java.lang.String[],int) -> a
-    954:954:boolean onShouldShowRequestPermissionRationale(java.lang.String) -> a
     971:972:void onAttachFragment(androidx.fragment.app.Fragment) -> a
     977:977:android.view.View onFindViewById(int) -> a
     894:894:androidx.activity.OnBackPressedDispatcher getOnBackPressedDispatcher() -> b
@@ -9616,8 +9595,6 @@ androidx.fragment.app.FragmentHostCallback -> androidx.fragment.app.e:
     58:59:void <init>(androidx.fragment.app.FragmentActivity) -> <init>
     62:67:void <init>(android.app.Activity,android.content.Context,android.os.Handler,int) -> <init>
     80:80:void onDump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> a
-    158:158:void onRequestPermissionsFromFragment(androidx.fragment.app.Fragment,java.lang.String[],int) -> a
-    165:165:boolean onShouldShowRequestPermissionRationale(java.lang.String) -> a
     185:185:android.view.View onFindViewById(int) -> a
     209:209:void onAttachFragment(androidx.fragment.app.Fragment) -> a
     86:86:boolean onShouldSaveFragmentState(androidx.fragment.app.Fragment) -> b
@@ -9748,7 +9725,6 @@ androidx.fragment.app.FragmentManagerImpl -> androidx.fragment.app.g:
     1526:1531:androidx.fragment.app.Fragment findFragmentByWho(java.lang.String) -> b
     1597:1613:int allocBackStackIndex(androidx.fragment.app.BackStackRecord) -> b
     1642:1649:void freeBackStackIndex(int) -> b
-    1688:1705:void execSingleAction(androidx.fragment.app.FragmentManagerImpl$OpGenerator,boolean) -> b
     1844:1899:void executeOpsTogether(java.util.ArrayList,java.util.ArrayList,int,int) -> b
     1909:1918:void makeRemovedFragmentsInvisible(androidx.collection.ArraySet) -> b
     2159:2171:boolean generateOpsForPendingActions(java.util.ArrayList,java.util.ArrayList) -> b
@@ -10026,8 +10002,6 @@ androidx.fragment.app.FragmentTransaction -> androidx.fragment.app.i:
     306:308:androidx.fragment.app.FragmentTransaction attach(androidx.fragment.app.Fragment) -> a
     int commitAllowingStateLoss() -> b
     289:291:androidx.fragment.app.FragmentTransaction detach(androidx.fragment.app.Fragment) -> b
-    void commitNow() -> c
-    532:533:androidx.fragment.app.FragmentTransaction disallowAddToBackStack() -> d
 androidx.fragment.app.FragmentTransaction$Op -> androidx.fragment.app.i$a:
     int mPopExitAnim -> f
     androidx.fragment.app.Fragment mFragment -> b
@@ -19025,14 +18999,6 @@ com.scwang.smartrefresh.layout.util.SmartUtil -> com.scwang.smartrefresh.layout.
     261:269:float viscousFluid(float) -> b
     41:53:int measureViewHeight(android.view.View) -> c
     274:281:float getInterpolation(float) -> getInterpolation
-com.tbruyelle.rxpermissions2.Permission -> com.tbruyelle.rxpermissions2.a:
-    java.lang.String name -> a
-    boolean granted -> b
-    boolean shouldShowRequestPermissionRationale -> c
-    19:23:void <init>(java.lang.String,boolean,boolean) -> <init>
-    34:35:boolean equals(java.lang.Object) -> equals
-    47:50:int hashCode() -> hashCode
-    55:55:java.lang.String toString() -> toString
 com.tbruyelle.rxpermissions2.R$attr -> com.tbruyelle.rxpermissions2.R$attr:
     13:13:void <init>() -> <init>
 com.tbruyelle.rxpermissions2.R$bool -> com.tbruyelle.rxpermissions2.R$bool:
@@ -19056,78 +19022,19 @@ com.tbruyelle.rxpermissions2.R$style -> com.tbruyelle.rxpermissions2.R$style:
 com.tbruyelle.rxpermissions2.R$styleable -> com.tbruyelle.rxpermissions2.R$styleable:
     159:177:void <clinit>() -> <clinit>
     157:157:void <init>() -> <init>
-com.tbruyelle.rxpermissions2.RxPermissions -> com.tbruyelle.rxpermissions2.b:
-    com.tbruyelle.rxpermissions2.RxPermissions$Lazy mRxPermissionsFragment -> a
-    java.lang.Object TRIGGER -> c
-    java.lang.String TAG -> b
-    38:39:void <clinit>() -> <clinit>
-    44:46:void <init>(androidx.fragment.app.FragmentActivity) -> <init>
-    36:36:com.tbruyelle.rxpermissions2.RxPermissionsFragment access$000(com.tbruyelle.rxpermissions2.RxPermissions,androidx.fragment.app.FragmentManager) -> a
-    36:36:io.reactivex.Observable access$100(com.tbruyelle.rxpermissions2.RxPermissions,io.reactivex.Observable,java.lang.String[]) -> a
-    36:36:io.reactivex.Observable access$200(com.tbruyelle.rxpermissions2.RxPermissions,java.lang.String[]) -> a
-    83:83:com.tbruyelle.rxpermissions2.RxPermissionsFragment findRxPermissionsFragment(androidx.fragment.app.FragmentManager) -> a
-    99:99:io.reactivex.ObservableTransformer ensure(java.lang.String[]) -> a
-    197:198:io.reactivex.Observable request(io.reactivex.Observable,java.lang.String[]) -> a
-    219:222:io.reactivex.Observable oneOf(io.reactivex.Observable,io.reactivex.Observable) -> a
-    308:308:boolean isGranted(java.lang.String) -> a
-    322:322:boolean isMarshmallow() -> a
-    54:54:com.tbruyelle.rxpermissions2.RxPermissions$Lazy getLazySingleton(androidx.fragment.app.FragmentManager) -> b
-    176:176:io.reactivex.Observable request(java.lang.String[]) -> b
-    318:318:boolean isRevoked(java.lang.String) -> b
-    70:79:com.tbruyelle.rxpermissions2.RxPermissionsFragment getRxPermissionsFragment(androidx.fragment.app.FragmentManager) -> c
-    297:299:void requestPermissionsFromFragment(java.lang.String[]) -> c
-    210:215:io.reactivex.Observable pending(java.lang.String[]) -> d
-    227:262:io.reactivex.Observable requestImplementation(java.lang.String[]) -> e
-com.tbruyelle.rxpermissions2.RxPermissions$1 -> com.tbruyelle.rxpermissions2.b$a:
-    androidx.fragment.app.FragmentManager val$fragmentManager -> b
-    com.tbruyelle.rxpermissions2.RxPermissions this$0 -> c
-    com.tbruyelle.rxpermissions2.RxPermissionsFragment rxPermissionsFragment -> a
-    54:54:void <init>(com.tbruyelle.rxpermissions2.RxPermissions,androidx.fragment.app.FragmentManager) -> <init>
-    54:54:java.lang.Object get() -> get
-    60:59:com.tbruyelle.rxpermissions2.RxPermissionsFragment get() -> get
-com.tbruyelle.rxpermissions2.RxPermissions$2 -> com.tbruyelle.rxpermissions2.b$b:
-    com.tbruyelle.rxpermissions2.RxPermissions this$0 -> b
-    java.lang.String[] val$permissions -> a
-    99:99:void <init>(com.tbruyelle.rxpermissions2.RxPermissions,java.lang.String[]) -> <init>
-    102:102:io.reactivex.ObservableSource apply(io.reactivex.Observable) -> a
-com.tbruyelle.rxpermissions2.RxPermissions$2$1 -> com.tbruyelle.rxpermissions2.b$b$a:
-    105:105:void <init>(com.tbruyelle.rxpermissions2.RxPermissions$2) -> <init>
-    108:120:io.reactivex.ObservableSource apply(java.util.List) -> a
-    105:105:java.lang.Object apply(java.lang.Object) -> apply
-com.tbruyelle.rxpermissions2.RxPermissions$5 -> com.tbruyelle.rxpermissions2.b$c:
-    com.tbruyelle.rxpermissions2.RxPermissions this$0 -> d
-    java.lang.String[] val$permissions -> c
-    201:201:void <init>(com.tbruyelle.rxpermissions2.RxPermissions,java.lang.String[]) -> <init>
-    201:201:java.lang.Object apply(java.lang.Object) -> apply
-    204:204:io.reactivex.Observable apply(java.lang.Object) -> apply
-com.tbruyelle.rxpermissions2.RxPermissions$Lazy -> com.tbruyelle.rxpermissions2.b$d:
-com.tbruyelle.rxpermissions2.RxPermissionsFragment -> com.tbruyelle.rxpermissions2.c:
-    boolean mLogging -> a0
-    java.util.Map mSubjects -> Z
-    26:27:void <init>() -> <init>
-    37:38:void requestPermissions(java.lang.String[]) -> a
-    42:53:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> a
-    56:70:void onRequestPermissionsResult(java.lang.String[],int[],boolean[]) -> a
-    103:104:void setSubjectForPermission(java.lang.String,io.reactivex.subjects.PublishSubject) -> a
-    31:33:void onCreate(android.os.Bundle) -> c
-    99:99:boolean containsByPermission(java.lang.String) -> c
-    95:95:io.reactivex.subjects.PublishSubject getSubjectByPermission(java.lang.String) -> d
-    74:76:boolean isGranted(java.lang.String) -> e
-    83:85:boolean isRevoked(java.lang.String) -> f
-    107:110:void log(java.lang.String) -> g
 com.zhoujiulong.assembly_a.AppApplication -> com.zhoujiulong.assembly_a.AppApplication:
-    9:9:void <init>() -> <init>
+    10:10:void <init>() -> <init>
 com.zhoujiulong.assembly_a.AssemblyAMainActivity -> com.zhoujiulong.assembly_a.AssemblyAMainActivity:
-    java.util.HashMap _$_findViewCache -> y
+    java.util.HashMap _$_findViewCache -> x
     17:17:void <init>() -> <init>
-    android.view.View _$_findCachedViewById(int) -> c
+    android.view.View _$_findCachedViewById(int) -> b
     35:35:void getData() -> l
     19:19:int getLayoutId() -> m
-    32:32:void initData() -> n
-    28:29:void initListener() -> o
+    32:32:void initData() -> o
     38:47:void onClick(android.view.View) -> onClick
-    25:25:void initPresenter() -> p
-    22:22:void initView() -> q
+    28:29:void initListener() -> p
+    25:25:void initPresenter() -> q
+    22:22:void initView() -> r
 com.zhoujiulong.assembly_a.R$color -> com.zhoujiulong.assembly_a.R$color:
     13:13:void <init>() -> <init>
 com.zhoujiulong.assembly_a.R$dimen -> com.zhoujiulong.assembly_a.R$dimen:
@@ -19143,18 +19050,18 @@ com.zhoujiulong.assembly_a.R$mipmap -> com.zhoujiulong.assembly_a.R$mipmap:
 com.zhoujiulong.assembly_a.R$style -> com.zhoujiulong.assembly_a.R$style:
     1710:1710:void <init>() -> <init>
 com.zhoujiulong.assembly_b.AppApplication -> com.zhoujiulong.assembly_b.AppApplication:
-    9:9:void <init>() -> <init>
+    10:10:void <init>() -> <init>
 com.zhoujiulong.assembly_b.AssemblyBMainActivity -> com.zhoujiulong.assembly_b.AssemblyBMainActivity:
-    java.util.HashMap _$_findViewCache -> y
+    java.util.HashMap _$_findViewCache -> x
     16:16:void <init>() -> <init>
-    android.view.View _$_findCachedViewById(int) -> c
+    android.view.View _$_findCachedViewById(int) -> b
     34:34:void getData() -> l
     18:18:int getLayoutId() -> m
-    31:31:void initData() -> n
-    27:28:void initListener() -> o
+    31:31:void initData() -> o
     37:40:void onClick(android.view.View) -> onClick
-    24:24:void initPresenter() -> p
-    21:21:void initView() -> q
+    27:28:void initListener() -> p
+    24:24:void initPresenter() -> q
+    21:21:void initView() -> r
 com.zhoujiulong.assembly_b.R$color -> com.zhoujiulong.assembly_b.R$color:
     13:13:void <init>() -> <init>
 com.zhoujiulong.assembly_b.R$dimen -> com.zhoujiulong.assembly_b.R$dimen:
@@ -19170,53 +19077,49 @@ com.zhoujiulong.assembly_b.R$mipmap -> com.zhoujiulong.assembly_b.R$mipmap:
 com.zhoujiulong.assembly_b.R$style -> com.zhoujiulong.assembly_b.R$style:
     1707:1707:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.AppApplication -> com.zhoujiulong.assemblyproject.AppApplication:
-    9:9:void <init>() -> <init>
+    10:10:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.MainActivity -> com.zhoujiulong.assemblyproject.MainActivity:
-    java.util.HashMap _$_findViewCache -> y
-    12:12:void <init>() -> <init>
-    android.view.View _$_findCachedViewById(int) -> c
-    30:33:void getData() -> l
-    14:14:int getLayoutId() -> m
-    27:27:void initData() -> n
-    23:24:void initListener() -> o
-    36:40:void onClick(android.view.View) -> onClick
-    20:20:void initPresenter() -> p
-    17:17:void initView() -> q
-com.zhoujiulong.assemblyproject.MainActivity$getData$1 -> com.zhoujiulong.assemblyproject.MainActivity$a:
-    com.zhoujiulong.assemblyproject.MainActivity$getData$1 INSTANCE -> c
-    31:32:void invoke(boolean) -> a
-    12:12:java.lang.Object invoke(java.lang.Object) -> invoke
+    java.util.HashMap _$_findViewCache -> x
+    10:10:void <init>() -> <init>
+    android.view.View _$_findCachedViewById(int) -> b
+    28:28:void getData() -> l
+    12:12:int getLayoutId() -> m
+    25:25:void initData() -> o
+    31:35:void onClick(android.view.View) -> onClick
+    21:22:void initListener() -> p
+    18:18:void initPresenter() -> q
+    15:15:void initView() -> r
 com.zhoujiulong.assemblyproject.R$anim -> com.zhoujiulong.assemblyproject.R$anim:
     11:11:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$attr -> com.zhoujiulong.assemblyproject.R$attr:
     37:37:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$bool -> com.zhoujiulong.assemblyproject.R$bool:
-    3208:3208:void <init>() -> <init>
+    3209:3209:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$color -> com.zhoujiulong.assemblyproject.R$color:
-    3213:3213:void <init>() -> <init>
+    3214:3214:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$dimen -> com.zhoujiulong.assemblyproject.R$dimen:
-    3303:3303:void <init>() -> <init>
+    3304:3304:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$drawable -> com.zhoujiulong.assemblyproject.R$drawable:
-    5089:5089:void <init>() -> <init>
+    5090:5090:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$id -> com.zhoujiulong.assemblyproject.R$id:
-    5210:5210:void <init>() -> <init>
+    5211:5211:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$integer -> com.zhoujiulong.assemblyproject.R$integer:
-    5440:5440:void <init>() -> <init>
+    5441:5441:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$interpolator -> com.zhoujiulong.assemblyproject.R$interpolator:
-    5447:5447:void <init>() -> <init>
+    5448:5448:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$layout -> com.zhoujiulong.assemblyproject.R$layout:
-    5456:5456:void <init>() -> <init>
+    5457:5457:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$mipmap -> com.zhoujiulong.assemblyproject.R$mipmap:
-    5522:5522:void <init>() -> <init>
+    5523:5523:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$string -> com.zhoujiulong.assemblyproject.R$string:
-    5534:5534:void <init>() -> <init>
+    5535:5535:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$style -> com.zhoujiulong.assemblyproject.R$style:
-    5587:5587:void <init>() -> <init>
+    5588:5588:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$styleable -> com.zhoujiulong.assemblyproject.R$styleable:
-    6020:15227:void <clinit>() -> <clinit>
-    5948:5948:void <init>() -> <init>
+    6021:15229:void <clinit>() -> <clinit>
+    5949:5949:void <init>() -> <init>
 com.zhoujiulong.assemblyproject.R$xml -> com.zhoujiulong.assemblyproject.R$xml:
-    15285:15285:void <init>() -> <init>
+    15287:15287:void <init>() -> <init>
 com.zhoujiulong.baselib.BuildConfig -> com.zhoujiulong.baselib.a:
     boolean DEBUG -> a
     7:7:void <clinit>() -> <clinit>
@@ -19261,71 +19164,60 @@ com.zhoujiulong.baselib.R$styleable -> com.zhoujiulong.baselib.R$styleable:
     3089:3089:void <init>() -> <init>
 com.zhoujiulong.baselib.R$xml -> com.zhoujiulong.baselib.R$xml:
     3669:3669:void <init>() -> <init>
-com.zhoujiulong.baselib.base.ActivityManager -> com.zhoujiulong.baselib.base.a:
+com.zhoujiulong.baselib.app.ActivityFragmentManager -> com.zhoujiulong.baselib.app.a:
     java.util.Stack activityStack -> a
-    com.zhoujiulong.baselib.base.ActivityManager$Companion Companion -> c
-    com.zhoujiulong.baselib.base.ActivityManager instance -> b
-    13:13:void <clinit>() -> <clinit>
-    8:8:void <init>() -> <init>
-    8:8:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
-    8:8:com.zhoujiulong.baselib.base.ActivityManager access$getInstance$cp() -> a
-    8:8:void access$setInstance$cp(com.zhoujiulong.baselib.base.ActivityManager) -> a
-    44:45:void addActivity(com.zhoujiulong.baselib.base.SimpleActivity) -> a
-    53:54:void removeActivity(com.zhoujiulong.baselib.base.SimpleActivity) -> b
-com.zhoujiulong.baselib.base.ActivityManager$Companion -> com.zhoujiulong.baselib.base.a$a:
+    com.zhoujiulong.baselib.app.ActivityFragmentManager instance -> b
+    com.zhoujiulong.baselib.app.ActivityFragmentManager$Companion Companion -> c
+    15:17:void <clinit>() -> <clinit>
     10:10:void <init>() -> <init>
     10:10:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
-    23:28:com.zhoujiulong.baselib.base.ActivityManager getInstance() -> a
-com.zhoujiulong.baselib.base.BaseActivity -> com.zhoujiulong.baselib.base.BaseActivity:
-    com.zhoujiulong.baselib.base.BasePresenter mPresenter -> w
-    io.reactivex.disposables.CompositeDisposable mCompositeDisposable -> v
-    com.zhoujiulong.baselib.LoadingDialog mLoadingDialog -> x
-    java.lang.String ReTag -> u
-    8:14:void <init>() -> <init>
-    8:8:void access$requestPermission(com.zhoujiulong.baselib.base.BaseActivity,java.util.List,int,boolean,kotlin.jvm.functions.Function1) -> a
-    38:42:void bindSubscription(io.reactivex.disposables.Disposable) -> a
-    57:60:void requestPermission(java.lang.String[],kotlin.jvm.functions.Function1) -> a
-    66:74:void requestPermission(java.util.List,int,boolean,kotlin.jvm.functions.Function1) -> a
-    30:31:void attachView() -> j
-    34:35:void detachView() -> k
-    24:27:void onDestroy() -> onDestroy
-com.zhoujiulong.baselib.base.BaseActivity$requestPermission$dis$1 -> com.zhoujiulong.baselib.base.BaseActivity$a:
-    kotlin.jvm.functions.Function1 $block -> f
-    java.util.List $permissions -> e
-    com.zhoujiulong.baselib.base.BaseActivity this$0 -> c
-    int $index -> d
-    boolean $allBeforeSuccess -> g
-    67:72:void accept(java.lang.Boolean) -> a
-    8:8:void accept(java.lang.Object) -> accept
-com.zhoujiulong.baselib.base.BasePresenter -> com.zhoujiulong.baselib.base.b:
-    void attachView(java.lang.Object,java.lang.String) -> a
-    void detachView() -> a
-com.zhoujiulong.baselib.base.BaseView -> com.zhoujiulong.baselib.base.c:
-com.zhoujiulong.baselib.base.SimpleActivity -> com.zhoujiulong.baselib.base.SimpleActivity:
-    boolean mNeedClickOutHideInput -> t
-    19:109:void <init>() -> <init>
-    98:101:void setOnClick(android.view.View[]) -> a
-    130:140:boolean isShouldHideInput(android.view.View,android.view.MotionEvent) -> a
-    112:119:boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
-    149:154:void hideSoftInput(android.view.View) -> hideSoftInput
-    void attachView() -> j
-    void detachView() -> k
-    void getData() -> l
-    int getLayoutId() -> m
-    void initData() -> n
-    void initListener() -> o
-    27:40:void onCreate(android.os.Bundle) -> onCreate
-    43:46:void onDestroy() -> onDestroy
-    void initPresenter() -> p
-    void initView() -> q
-com.zhoujiulong.baselib.base.SimpleApplication -> com.zhoujiulong.baselib.base.SimpleApplication:
+    10:10:com.zhoujiulong.baselib.app.ActivityFragmentManager access$getInstance$cp() -> a
+    10:10:void access$setInstance$cp(com.zhoujiulong.baselib.app.ActivityFragmentManager) -> a
+    73:74:void addActivity(com.zhoujiulong.baselib.base.SimpleActivity) -> a
+    82:83:void removeActivity(com.zhoujiulong.baselib.base.SimpleActivity) -> b
+com.zhoujiulong.baselib.app.ActivityFragmentManager$Companion -> com.zhoujiulong.baselib.app.a$a:
+    12:12:void <init>() -> <init>
+    12:12:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
+    27:33:com.zhoujiulong.baselib.app.ActivityFragmentManager getInstance() -> a
+com.zhoujiulong.baselib.app.SimpleApplication -> com.zhoujiulong.baselib.app.SimpleApplication:
     14:14:void <init>() -> <init>
     37:42:void initARouter() -> a
     22:24:void attachBaseContext(android.content.Context) -> attachBaseContext
     27:31:void onCreate() -> onCreate
-com.zhoujiulong.baselib.base.SimpleApplication$Companion -> com.zhoujiulong.baselib.base.SimpleApplication$a:
+com.zhoujiulong.baselib.app.SimpleApplication$Companion -> com.zhoujiulong.baselib.app.SimpleApplication$a:
     16:16:void <init>() -> <init>
     16:16:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
+com.zhoujiulong.baselib.base.BaseActivity -> com.zhoujiulong.baselib.base.BaseActivity:
+    com.zhoujiulong.baselib.base.BasePresenter mPresenter -> v
+    io.reactivex.disposables.CompositeDisposable mCompositeDisposable -> u
+    com.zhoujiulong.baselib.LoadingDialog mLoadingDialog -> w
+    8:8:void <init>() -> <init>
+    26:27:void attachView() -> j
+    30:31:void detachView() -> k
+    20:20:void onDestroy() -> onDestroy
+com.zhoujiulong.baselib.base.BasePresenter -> com.zhoujiulong.baselib.base.a:
+    void attachView(java.lang.Object,java.lang.String) -> a
+    void detachView() -> a
+com.zhoujiulong.baselib.base.BaseView -> com.zhoujiulong.baselib.base.b:
+com.zhoujiulong.baselib.base.SimpleActivity -> com.zhoujiulong.baselib.base.SimpleActivity:
+    java.lang.String ReTag -> s
+    boolean mNeedClickOutHideInput -> t
+    20:113:void <init>() -> <init>
+    102:105:void setOnClick(android.view.View[]) -> a
+    134:144:boolean isShouldHideInput(android.view.View,android.view.MotionEvent) -> a
+    116:123:boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
+    153:158:void hideSoftInput(android.view.View) -> hideSoftInput
+    void attachView() -> j
+    void detachView() -> k
+    void getData() -> l
+    int getLayoutId() -> m
+    25:25:java.lang.String getReTag() -> n
+    void initData() -> o
+    31:44:void onCreate(android.os.Bundle) -> onCreate
+    47:50:void onDestroy() -> onDestroy
+    void initListener() -> p
+    void initPresenter() -> q
+    void initView() -> r
 com.zhoujiulong.baselib.http.other.RequestErrorType -> com.zhoujiulong.baselib.http.other.RequestErrorType:
     10:10:void <init>(java.lang.String,int) -> <init>
 com.zhoujiulong.baselib.http.other.TimeOut$TimeOutType -> com.zhoujiulong.baselib.http.other.TimeOut$TimeOutType:
@@ -19642,56 +19534,23 @@ io.reactivex.BackpressureStrategy -> io.reactivex.BackpressureStrategy:
     19:19:io.reactivex.BackpressureStrategy[] values() -> values
 io.reactivex.CompletableObserver -> io.reactivex.a:
 io.reactivex.Flowable -> io.reactivex.b:
-    int BUFFER_SIZE -> c
     65:66:void <clinit>() -> <clinit>
     61:61:void <init>() -> <init>
-    142:142:int bufferSize() -> a
 io.reactivex.FlowableSubscriber -> io.reactivex.c:
 io.reactivex.MaybeObserver -> io.reactivex.d:
 io.reactivex.MaybeSource -> io.reactivex.e:
 io.reactivex.Observable -> io.reactivex.f:
     98:98:void <init>() -> <init>
-    168:168:int bufferSize() -> a
-    1128:1128:io.reactivex.Observable concat(io.reactivex.ObservableSource) -> a
-    1155:1157:io.reactivex.Observable concat(io.reactivex.ObservableSource,int) -> a
-    1765:1772:io.reactivex.Observable fromArray(java.lang.Object[]) -> a
-    1983:1984:io.reactivex.Observable fromIterable(java.lang.Iterable) -> a
-    2389:2390:io.reactivex.Observable just(java.lang.Object) -> a
-    3070:3072:io.reactivex.Observable merge(io.reactivex.ObservableSource,io.reactivex.ObservableSource) -> a
-    5578:5578:io.reactivex.Observable buffer(int) -> a
-    5607:5607:io.reactivex.Observable buffer(int,int) -> a
-    5640:5643:io.reactivex.Observable buffer(int,int,java.util.concurrent.Callable) -> a
-    6418:6418:io.reactivex.Observable compose(io.reactivex.ObservableTransformer) -> a
-    8486:8486:io.reactivex.Observable flatMap(io.reactivex.functions.Function) -> a
-    8515:8515:io.reactivex.Observable flatMap(io.reactivex.functions.Function,boolean) -> a
-    8548:8548:io.reactivex.Observable flatMap(io.reactivex.functions.Function,boolean,int) -> a
-    8584:8595:io.reactivex.Observable flatMap(io.reactivex.functions.Function,boolean,int,int) -> a
-    12134:12134:io.reactivex.disposables.Disposable subscribe(io.reactivex.functions.Consumer) -> a
-    12225:12234:io.reactivex.disposables.Disposable subscribe(io.reactivex.functions.Consumer,io.reactivex.functions.Consumer,io.reactivex.functions.Action,io.reactivex.functions.Consumer) -> a
-    12240:12248:void subscribe(io.reactivex.Observer) -> a
-    void subscribeActual(io.reactivex.Observer) -> b
-    1690:1690:io.reactivex.Observable empty() -> b
-    4086:4090:io.reactivex.Observable wrap(io.reactivex.ObservableSource) -> b
 io.reactivex.ObservableSource -> io.reactivex.g:
-    void subscribe(io.reactivex.Observer) -> a
-io.reactivex.ObservableTransformer -> io.reactivex.h:
-    io.reactivex.ObservableSource apply(io.reactivex.Observable) -> a
-io.reactivex.Observer -> io.reactivex.i:
-io.reactivex.SingleObserver -> io.reactivex.j:
+io.reactivex.Observer -> io.reactivex.h:
+io.reactivex.SingleObserver -> io.reactivex.i:
 io.reactivex.annotations.BackpressureKind -> io.reactivex.annotations.BackpressureKind:
     24:20:void <clinit>() -> <clinit>
     20:20:void <init>(java.lang.String,int) -> <init>
     20:20:io.reactivex.annotations.BackpressureKind valueOf(java.lang.String) -> valueOf
     20:20:io.reactivex.annotations.BackpressureKind[] values() -> values
-io.reactivex.disposables.CompositeDisposable -> io.reactivex.k.a:
-    io.reactivex.internal.util.OpenHashSet resources -> c
-    boolean disposed -> d
-    36:37:void <init>() -> <init>
-    167:180:boolean delete(io.reactivex.disposables.Disposable) -> a
-    227:251:void dispose(io.reactivex.internal.util.OpenHashSet) -> a
-    96:111:boolean add(io.reactivex.disposables.Disposable) -> b
-    67:78:void dispose() -> dispose
-io.reactivex.disposables.Disposable -> io.reactivex.k.b:
+io.reactivex.disposables.CompositeDisposable -> io.reactivex.j.a:
+io.reactivex.disposables.Disposable -> io.reactivex.j.b:
 io.reactivex.exceptions.CompositeException -> io.reactivex.exceptions.CompositeException:
     53:55:void <init>(java.lang.Throwable[]) -> <init>
     64:82:void <init>(java.lang.Iterable) -> <init>
@@ -19732,18 +19591,18 @@ io.reactivex.exceptions.ProtocolViolationException -> io.reactivex.exceptions.Pr
     31:32:void <init>(java.lang.String) -> <init>
 io.reactivex.exceptions.UndeliverableException -> io.reactivex.exceptions.UndeliverableException:
     31:32:void <init>(java.lang.Throwable) -> <init>
-io.reactivex.flowables.GroupedFlowable -> io.reactivex.l.a:
+io.reactivex.flowables.GroupedFlowable -> io.reactivex.k.a:
     41:43:void <init>(java.lang.Object) -> <init>
-io.reactivex.functions.Action -> io.reactivex.m.a:
-io.reactivex.functions.BiConsumer -> io.reactivex.m.b:
+io.reactivex.functions.Action -> io.reactivex.l.a:
+io.reactivex.functions.BiConsumer -> io.reactivex.l.b:
     void accept(java.lang.Object,java.lang.Object) -> a
-io.reactivex.functions.BiFunction -> io.reactivex.m.c:
-io.reactivex.functions.BiPredicate -> io.reactivex.m.d:
-io.reactivex.functions.Cancellable -> io.reactivex.m.e:
-io.reactivex.functions.Consumer -> io.reactivex.m.f:
-io.reactivex.functions.Function -> io.reactivex.m.g:
-io.reactivex.functions.LongConsumer -> io.reactivex.m.h:
-io.reactivex.functions.Predicate -> io.reactivex.m.i:
+io.reactivex.functions.BiFunction -> io.reactivex.l.c:
+io.reactivex.functions.BiPredicate -> io.reactivex.l.d:
+io.reactivex.functions.Cancellable -> io.reactivex.l.e:
+io.reactivex.functions.Consumer -> io.reactivex.l.f:
+io.reactivex.functions.Function -> io.reactivex.l.g:
+io.reactivex.functions.LongConsumer -> io.reactivex.l.h:
+io.reactivex.functions.Predicate -> io.reactivex.l.i:
     boolean test(java.lang.Object) -> a
 io.reactivex.internal.disposables.ArrayCompositeDisposable -> io.reactivex.internal.disposables.ArrayCompositeDisposable:
     32:33:void <init>(int) -> <init>
@@ -19799,79 +19658,68 @@ io.reactivex.internal.disposables.SequentialDisposable -> io.reactivex.internal.
     77:77:boolean isDisposed() -> isDisposed
     67:67:boolean replace(io.reactivex.disposables.Disposable) -> replace
     56:56:boolean update(io.reactivex.disposables.Disposable) -> update
-io.reactivex.internal.functions.Functions -> io.reactivex.n.a.a:
-    io.reactivex.functions.Consumer EMPTY_CONSUMER -> d
-    java.lang.Runnable EMPTY_RUNNABLE -> b
-    io.reactivex.functions.Function IDENTITY -> a
-    io.reactivex.functions.Consumer ON_ERROR_MISSING -> e
-    io.reactivex.functions.Action EMPTY_ACTION -> c
+io.reactivex.internal.functions.Functions -> io.reactivex.m.a.a:
+    io.reactivex.functions.Consumer ON_ERROR_MISSING -> b
+    java.lang.Runnable EMPTY_RUNNABLE -> a
     81:514:void <clinit>() -> <clinit>
-    106:106:io.reactivex.functions.Consumer emptyConsumer() -> a
-    90:90:io.reactivex.functions.Function identity() -> b
-io.reactivex.internal.functions.Functions$EmptyAction -> io.reactivex.n.a.a$a:
+io.reactivex.internal.functions.Functions$EmptyAction -> io.reactivex.m.a.a$a:
     674:674:void <init>() -> <init>
     676:676:void run() -> run
     680:680:java.lang.String toString() -> toString
-io.reactivex.internal.functions.Functions$EmptyConsumer -> io.reactivex.n.a.a$b:
+io.reactivex.internal.functions.Functions$EmptyConsumer -> io.reactivex.m.a.a$b:
     684:684:void <init>() -> <init>
     686:686:void accept(java.lang.Object) -> accept
     690:690:java.lang.String toString() -> toString
-io.reactivex.internal.functions.Functions$EmptyLongConsumer -> io.reactivex.n.a.a$c:
+io.reactivex.internal.functions.Functions$EmptyLongConsumer -> io.reactivex.m.a.a$c:
     708:708:void <init>() -> <init>
-io.reactivex.internal.functions.Functions$EmptyRunnable -> io.reactivex.n.a.a$d:
+io.reactivex.internal.functions.Functions$EmptyRunnable -> io.reactivex.m.a.a$d:
     664:664:void <init>() -> <init>
     666:666:void run() -> run
     670:670:java.lang.String toString() -> toString
-io.reactivex.internal.functions.Functions$ErrorConsumer -> io.reactivex.n.a.a$e:
+io.reactivex.internal.functions.Functions$ErrorConsumer -> io.reactivex.m.a.a$e:
     694:694:void <init>() -> <init>
     697:698:void accept(java.lang.Throwable) -> a
     694:694:void accept(java.lang.Object) -> accept
-io.reactivex.internal.functions.Functions$FalsePredicate -> io.reactivex.n.a.a$f:
+io.reactivex.internal.functions.Functions$FalsePredicate -> io.reactivex.m.a.a$f:
     720:720:void <init>() -> <init>
     723:723:boolean test(java.lang.Object) -> a
-io.reactivex.internal.functions.Functions$Identity -> io.reactivex.n.a.a$g:
+io.reactivex.internal.functions.Functions$Identity -> io.reactivex.m.a.a$g:
     652:652:void <init>() -> <init>
     655:655:java.lang.Object apply(java.lang.Object) -> apply
     660:660:java.lang.String toString() -> toString
-io.reactivex.internal.functions.Functions$MaxRequestSubscription -> io.reactivex.n.a.a$h:
+io.reactivex.internal.functions.Functions$MaxRequestSubscription -> io.reactivex.m.a.a$h:
     742:742:void <init>() -> <init>
     745:746:void accept(org.reactivestreams.Subscription) -> a
     742:742:void accept(java.lang.Object) -> accept
-io.reactivex.internal.functions.Functions$NaturalObjectComparator -> io.reactivex.n.a.a$i:
+io.reactivex.internal.functions.Functions$NaturalObjectComparator -> io.reactivex.m.a.a$i:
     734:734:void <init>() -> <init>
     738:738:int compare(java.lang.Object,java.lang.Object) -> compare
-io.reactivex.internal.functions.Functions$NullCallable -> io.reactivex.n.a.a$j:
+io.reactivex.internal.functions.Functions$NullCallable -> io.reactivex.m.a.a$j:
     727:727:void <init>() -> <init>
     730:730:java.lang.Object call() -> call
-io.reactivex.internal.functions.Functions$OnErrorMissingConsumer -> io.reactivex.n.a.a$k:
+io.reactivex.internal.functions.Functions$OnErrorMissingConsumer -> io.reactivex.m.a.a$k:
     701:701:void <init>() -> <init>
     704:705:void accept(java.lang.Throwable) -> a
     701:701:void accept(java.lang.Object) -> accept
-io.reactivex.internal.functions.Functions$TruePredicate -> io.reactivex.n.a.a$l:
+io.reactivex.internal.functions.Functions$TruePredicate -> io.reactivex.m.a.a$l:
     713:713:void <init>() -> <init>
     716:716:boolean test(java.lang.Object) -> a
-io.reactivex.internal.functions.ObjectHelper -> io.reactivex.n.a.b:
+io.reactivex.internal.functions.ObjectHelper -> io.reactivex.m.a.b:
     83:83:void <clinit>() -> <clinit>
     38:39:java.lang.Object requireNonNull(java.lang.Object,java.lang.String) -> a
     51:51:boolean equals(java.lang.Object,java.lang.Object) -> a
-    104:105:int verifyPositive(int,java.lang.String) -> a
-io.reactivex.internal.functions.ObjectHelper$BiObjectPredicate -> io.reactivex.n.a.b$a:
+io.reactivex.internal.functions.ObjectHelper$BiObjectPredicate -> io.reactivex.m.a.b$a:
     125:125:void <init>() -> <init>
-io.reactivex.internal.fuseable.HasUpstreamMaybeSource -> io.reactivex.n.b.a:
-io.reactivex.internal.fuseable.HasUpstreamObservableSource -> io.reactivex.n.b.b:
-io.reactivex.internal.fuseable.QueueDisposable -> io.reactivex.n.b.c:
-io.reactivex.internal.fuseable.QueueFuseable -> io.reactivex.n.b.d:
-io.reactivex.internal.fuseable.QueueSubscription -> io.reactivex.n.b.e:
-io.reactivex.internal.fuseable.ScalarCallable -> io.reactivex.n.b.f:
-io.reactivex.internal.fuseable.SimplePlainQueue -> io.reactivex.n.b.g:
-io.reactivex.internal.fuseable.SimpleQueue -> io.reactivex.n.b.h:
+io.reactivex.internal.fuseable.HasUpstreamMaybeSource -> io.reactivex.m.b.a:
+io.reactivex.internal.fuseable.QueueDisposable -> io.reactivex.m.b.b:
+io.reactivex.internal.fuseable.QueueFuseable -> io.reactivex.m.b.c:
+io.reactivex.internal.fuseable.QueueSubscription -> io.reactivex.m.b.d:
+io.reactivex.internal.fuseable.SimplePlainQueue -> io.reactivex.m.b.e:
+io.reactivex.internal.fuseable.SimpleQueue -> io.reactivex.m.b.f:
 io.reactivex.internal.observers.BasicIntQueueDisposable -> io.reactivex.internal.observers.BasicIntQueueDisposable:
     25:25:void <init>() -> <init>
     33:33:boolean offer(java.lang.Object) -> offer
     38:38:boolean offer(java.lang.Object,java.lang.Object) -> offer
-io.reactivex.internal.observers.BasicQueueDisposable -> io.reactivex.internal.observers.a:
-    23:23:void <init>() -> <init>
-    27:27:boolean offer(java.lang.Object) -> offer
 io.reactivex.internal.observers.BiConsumerSingleObserver -> io.reactivex.internal.observers.BiConsumerSingleObserver:
     32:34:void <init>(io.reactivex.functions.BiConsumer) -> <init>
     65:66:void dispose() -> dispose
@@ -19953,7 +19801,7 @@ io.reactivex.internal.observers.InnerQueuedObserver -> io.reactivex.internal.obs
     53:75:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
     115:115:io.reactivex.internal.fuseable.SimpleQueue queue() -> queue
     111:112:void setDone() -> setDone
-io.reactivex.internal.observers.InnerQueuedObserverSupport -> io.reactivex.internal.observers.b:
+io.reactivex.internal.observers.InnerQueuedObserverSupport -> io.reactivex.internal.observers.a:
     void drain() -> a
     void innerComplete(io.reactivex.internal.observers.InnerQueuedObserver) -> a
     void innerError(io.reactivex.internal.observers.InnerQueuedObserver,java.lang.Throwable) -> a
@@ -19988,16 +19836,15 @@ io.reactivex.internal.operators.flowable.FlowableGroupBy$GroupBySubscriber -> io
     227:231:void request(long) -> request
     409:413:int requestFusion(int) -> requestFusion
 io.reactivex.internal.operators.flowable.FlowableGroupBy$GroupedUnicast -> io.reactivex.internal.operators.flowable.a:
-    io.reactivex.internal.operators.flowable.FlowableGroupBy$State state -> d
+    io.reactivex.internal.operators.flowable.FlowableGroupBy$State state -> c
     457:459:void <init>(java.lang.Object,io.reactivex.internal.operators.flowable.FlowableGroupBy$State) -> <init>
     452:453:io.reactivex.internal.operators.flowable.FlowableGroupBy$GroupedUnicast createWith(java.lang.Object,int,io.reactivex.internal.operators.flowable.FlowableGroupBy$GroupBySubscriber,boolean) -> a
     467:468:void onNext(java.lang.Object) -> a
     471:472:void onError(java.lang.Throwable) -> a
-    475:476:void onComplete() -> b
+    475:476:void onComplete() -> a
 io.reactivex.internal.operators.flowable.FlowableGroupBy$State -> io.reactivex.internal.operators.flowable.b:
     java.util.concurrent.atomic.AtomicReference actual -> k
     io.reactivex.internal.queue.SpscLinkedArrayQueue queue -> d
-    int produced -> m
     boolean outputFused -> l
     java.lang.Object key -> c
     boolean delayError -> f
@@ -20009,15 +19856,12 @@ io.reactivex.internal.operators.flowable.FlowableGroupBy$State -> io.reactivex.i
     503:508:void <init>(int,io.reactivex.internal.operators.flowable.FlowableGroupBy$GroupBySubscriber,java.lang.Object,boolean) -> <init>
     663:693:boolean checkTerminated(boolean,boolean,org.reactivestreams.Subscriber,boolean) -> a
     520:523:void cancel() -> cancel
-    728:729:void clear() -> clear
     553:561:void drain() -> drain
     564:605:void drainFused() -> drainFused
     612:656:void drainNormal() -> drainNormal
-    723:723:boolean isEmpty() -> isEmpty
     548:550:void onComplete() -> onComplete
     542:545:void onError(java.lang.Throwable) -> onError
     537:539:void onNext(java.lang.Object) -> onNext
-    708:718:java.lang.Object poll() -> poll
     512:516:void request(long) -> request
     698:702:int requestFusion(int) -> requestFusion
 io.reactivex.internal.operators.flowable.FlowableInternalHelper$RequestMax -> io.reactivex.internal.operators.flowable.FlowableInternalHelper$RequestMax:
@@ -20046,207 +19890,6 @@ io.reactivex.internal.operators.maybe.MaybeToPublisher -> io.reactivex.internal.
     29:29:io.reactivex.functions.Function instance() -> instance
     24:24:io.reactivex.internal.operators.maybe.MaybeToPublisher valueOf(java.lang.String) -> valueOf
     24:24:io.reactivex.internal.operators.maybe.MaybeToPublisher[] values() -> values
-io.reactivex.internal.operators.observable.AbstractObservableWithUpstream -> io.reactivex.internal.operators.observable.a:
-    io.reactivex.ObservableSource source -> c
-    34:36:void <init>(io.reactivex.ObservableSource) -> <init>
-io.reactivex.internal.operators.observable.ObservableBuffer -> io.reactivex.internal.operators.observable.b:
-    int count -> d
-    int skip -> e
-    java.util.concurrent.Callable bufferSupplier -> f
-    33:37:void <init>(io.reactivex.ObservableSource,int,int,java.util.concurrent.Callable) -> <init>
-    41:49:void subscribeActual(io.reactivex.Observer) -> b
-io.reactivex.internal.operators.observable.ObservableBuffer$BufferExactObserver -> io.reactivex.internal.operators.observable.b$a:
-    java.util.Collection buffer -> f
-    int size -> g
-    int count -> d
-    io.reactivex.disposables.Disposable upstream -> h
-    io.reactivex.Observer downstream -> c
-    java.util.concurrent.Callable bufferSupplier -> e
-    61:65:void <init>(io.reactivex.Observer,int,java.util.concurrent.Callable) -> <init>
-    70:80:boolean createBuffer() -> a
-    98:99:void dispose() -> dispose
-    129:137:void onComplete() -> onComplete
-    123:125:void onError(java.lang.Throwable) -> onError
-    108:119:void onNext(java.lang.Object) -> onNext
-    90:94:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableBuffer$BufferSkipObserver -> io.reactivex.internal.operators.observable.b$b:
-    long index -> i
-    java.util.ArrayDeque buffers -> h
-    int count -> d
-    int skip -> e
-    io.reactivex.disposables.Disposable upstream -> g
-    java.util.concurrent.Callable bufferSupplier -> f
-    io.reactivex.Observer downstream -> c
-    155:161:void <init>(io.reactivex.Observer,int,int,java.util.concurrent.Callable) -> <init>
-    173:174:void dispose() -> dispose
-    218:222:void onComplete() -> onComplete
-    212:214:void onError(java.lang.Throwable) -> onError
-    183:208:void onNext(java.lang.Object) -> onNext
-    165:169:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableConcatMap -> io.reactivex.internal.operators.observable.c:
-    io.reactivex.functions.Function mapper -> d
-    int bufferSize -> e
-    io.reactivex.internal.util.ErrorMode delayErrors -> f
-    38:42:void <init>(io.reactivex.ObservableSource,io.reactivex.functions.Function,int,io.reactivex.internal.util.ErrorMode) -> <init>
-    47:57:void subscribeActual(io.reactivex.Observer) -> b
-io.reactivex.internal.operators.observable.ObservableConcatMap$ConcatMapDelayErrorObserver -> io.reactivex.internal.operators.observable.c$a:
-    boolean cancelled -> m
-    int sourceMode -> n
-    io.reactivex.internal.fuseable.SimpleQueue queue -> i
-    io.reactivex.internal.util.AtomicThrowable error -> f
-    boolean active -> k
-    boolean done -> l
-    io.reactivex.disposables.Disposable upstream -> j
-    io.reactivex.functions.Function mapper -> d
-    int bufferSize -> e
-    boolean tillTheEnd -> h
-    io.reactivex.internal.operators.observable.ObservableConcatMap$ConcatMapDelayErrorObserver$DelayErrorInnerObserver observer -> g
-    io.reactivex.Observer downstream -> c
-    304:311:void <init>(io.reactivex.Observer,io.reactivex.functions.Function,int,boolean) -> <init>
-    387:480:void drain() -> a
-    380:383:void dispose() -> dispose
-    369:371:void onComplete() -> onComplete
-    359:365:void onError(java.lang.Throwable) -> onError
-    351:355:void onNext(java.lang.Object) -> onNext
-    315:347:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableConcatMap$ConcatMapDelayErrorObserver$DelayErrorInnerObserver -> io.reactivex.internal.operators.observable.c$a$a:
-    io.reactivex.internal.operators.observable.ObservableConcatMap$ConcatMapDelayErrorObserver parent -> d
-    io.reactivex.Observer downstream -> c
-    494:497:void <init>(io.reactivex.Observer,io.reactivex.internal.operators.observable.ObservableConcatMap$ConcatMapDelayErrorObserver) -> <init>
-    531:532:void dispose() -> a
-    525:528:void onComplete() -> onComplete
-    511:521:void onError(java.lang.Throwable) -> onError
-    506:507:void onNext(java.lang.Object) -> onNext
-    501:502:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableConcatMap$SourceObserver -> io.reactivex.internal.operators.observable.c$b:
-    io.reactivex.internal.operators.observable.ObservableConcatMap$SourceObserver$InnerObserver inner -> e
-    io.reactivex.internal.fuseable.SimpleQueue queue -> g
-    int fusionMode -> l
-    boolean active -> i
-    boolean disposed -> j
-    boolean done -> k
-    int bufferSize -> f
-    io.reactivex.functions.Function mapper -> d
-    io.reactivex.disposables.Disposable upstream -> h
-    io.reactivex.Observer downstream -> c
-    80:85:void <init>(io.reactivex.Observer,io.reactivex.functions.Function,int) -> <init>
-    176:227:void drain() -> a
-    155:157:void innerComplete() -> b
-    166:173:void dispose() -> dispose
-    147:152:void onComplete() -> onComplete
-    136:143:void onError(java.lang.Throwable) -> onError
-    125:132:void onNext(java.lang.Object) -> onNext
-    89:121:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableConcatMap$SourceObserver$InnerObserver -> io.reactivex.internal.operators.observable.c$b$a:
-    io.reactivex.internal.operators.observable.ObservableConcatMap$SourceObserver parent -> d
-    io.reactivex.Observer downstream -> c
-    240:243:void <init>(io.reactivex.Observer,io.reactivex.internal.operators.observable.ObservableConcatMap$SourceObserver) -> <init>
-    267:268:void dispose() -> a
-    263:264:void onComplete() -> onComplete
-    257:259:void onError(java.lang.Throwable) -> onError
-    252:253:void onNext(java.lang.Object) -> onNext
-    247:248:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableEmpty -> io.reactivex.internal.operators.observable.d:
-    io.reactivex.Observable INSTANCE -> c
-    21:21:void <clinit>() -> <clinit>
-    23:24:void <init>() -> <init>
-    28:29:void subscribeActual(io.reactivex.Observer) -> b
-    33:33:java.lang.Object call() -> call
-io.reactivex.internal.operators.observable.ObservableFlatMap -> io.reactivex.internal.operators.observable.e:
-    boolean delayErrors -> e
-    int maxConcurrency -> f
-    int bufferSize -> g
-    io.reactivex.functions.Function mapper -> d
-    41:46:void <init>(io.reactivex.ObservableSource,io.reactivex.functions.Function,boolean,int,int) -> <init>
-    51:56:void subscribeActual(io.reactivex.Observer) -> b
-io.reactivex.internal.operators.observable.ObservableFlatMap$InnerObserver -> io.reactivex.internal.operators.observable.e$a:
-    io.reactivex.internal.operators.observable.ObservableFlatMap$MergeObserver parent -> d
-    boolean done -> e
-    int fusionMode -> g
-    long id -> c
-    io.reactivex.internal.fuseable.SimpleQueue queue -> f
-    531:534:void <init>(io.reactivex.internal.operators.observable.ObservableFlatMap$MergeObserver,long) -> <init>
-    588:589:void dispose() -> a
-    583:585:void onComplete() -> onComplete
-    570:579:void onError(java.lang.Throwable) -> onError
-    561:566:void onNext(java.lang.Object) -> onNext
-    538:557:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableFlatMap$MergeObserver -> io.reactivex.internal.operators.observable.e$b:
-    io.reactivex.internal.fuseable.SimplePlainQueue queue -> h
-    boolean done -> i
-    io.reactivex.disposables.Disposable upstream -> m
-    boolean cancelled -> k
-    int maxConcurrency -> f
-    int bufferSize -> g
-    io.reactivex.functions.Function mapper -> d
-    java.util.Queue sources -> q
-    io.reactivex.internal.util.AtomicThrowable errors -> j
-    java.util.concurrent.atomic.AtomicReference observers -> l
-    io.reactivex.internal.operators.observable.ObservableFlatMap$InnerObserver[] EMPTY -> s
-    boolean delayErrors -> e
-    io.reactivex.internal.operators.observable.ObservableFlatMap$InnerObserver[] CANCELLED -> t
-    long uniqueId -> n
-    int wip -> r
-    int lastIndex -> p
-    io.reactivex.Observer downstream -> c
-    long lastId -> o
-    78:80:void <clinit>() -> <clinit>
-    93:103:void <init>(io.reactivex.Observer,io.reactivex.functions.Function,boolean,int,int) -> <init>
-    145:170:void subscribeInner(io.reactivex.ObservableSource) -> a
-    174:186:boolean addInner(io.reactivex.internal.operators.observable.ObservableFlatMap$InnerObserver) -> a
-    223:228:boolean tryEmitScalar(java.util.concurrent.Callable) -> a
-    264:281:void tryEmit(java.lang.Object,io.reactivex.internal.operators.observable.ObservableFlatMap$InnerObserver) -> a
-    488:500:boolean checkTerminate() -> a
-    191:217:void removeInner(io.reactivex.internal.operators.observable.ObservableFlatMap$InnerObserver) -> b
-    504:515:boolean disposeAll() -> b
-    325:328:void drain() -> c
-    331:484:void drainLoop() -> d
-    308:317:void dispose() -> dispose
-    299:304:void onComplete() -> onComplete
-    285:295:void onError(java.lang.Throwable) -> onError
-    116:126:void onNext(java.lang.Object) -> onNext
-    107:111:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableFromArray -> io.reactivex.internal.operators.observable.f:
-    java.lang.Object[] array -> c
-    23:25:void <init>(java.lang.Object[]) -> <init>
-    29:38:void subscribeActual(io.reactivex.Observer) -> b
-io.reactivex.internal.operators.observable.ObservableFromArray$FromArrayDisposable -> io.reactivex.internal.operators.observable.f$a:
-    java.lang.Object[] array -> d
-    boolean fusionMode -> f
-    boolean disposed -> g
-    int index -> e
-    io.reactivex.Observer downstream -> c
-    52:55:void <init>(io.reactivex.Observer,java.lang.Object[]) -> <init>
-    95:95:boolean isDisposed() -> a
-    99:113:void run() -> b
-    85:86:void clear() -> clear
-    90:91:void dispose() -> dispose
-    80:80:boolean isEmpty() -> isEmpty
-    69:75:java.lang.Object poll() -> poll
-    59:63:int requestFusion(int) -> requestFusion
-io.reactivex.internal.operators.observable.ObservableFromIterable -> io.reactivex.internal.operators.observable.g:
-    java.lang.Iterable source -> c
-    27:29:void <init>(java.lang.Iterable) -> <init>
-    35:39:void subscribeActual(io.reactivex.Observer) -> b
-io.reactivex.internal.operators.observable.ObservableFromIterable$FromIterableDisposable -> io.reactivex.internal.operators.observable.g$a:
-    java.util.Iterator it -> d
-    boolean disposed -> e
-    boolean fusionMode -> f
-    boolean done -> g
-    boolean checkNext -> h
-    io.reactivex.Observer downstream -> c
-    76:79:void <init>(io.reactivex.Observer,java.util.Iterator) -> <init>
-    161:161:boolean isDisposed() -> a
-    85:95:void run() -> b
-    151:152:void clear() -> clear
-    156:157:void dispose() -> dispose
-    146:146:boolean isEmpty() -> isEmpty
-    129:141:java.lang.Object poll() -> poll
-    119:123:int requestFusion(int) -> requestFusion
-io.reactivex.internal.operators.observable.ObservableFromUnsafeSource -> io.reactivex.internal.operators.observable.h:
-    io.reactivex.ObservableSource source -> c
-    21:23:void <init>(io.reactivex.ObservableSource) -> <init>
-    27:28:void subscribeActual(io.reactivex.Observer) -> b
 io.reactivex.internal.operators.observable.ObservableGroupBy$GroupByObserver -> io.reactivex.internal.operators.observable.ObservableGroupBy$GroupByObserver:
     62:62:void <clinit>() -> <clinit>
     68:76:void <init>(io.reactivex.Observer,io.reactivex.functions.Function,io.reactivex.functions.Function,int,boolean) -> <init>
@@ -20257,40 +19900,29 @@ io.reactivex.internal.operators.observable.ObservableGroupBy$GroupByObserver -> 
     130:138:void onError(java.lang.Throwable) -> onError
     90:95:void onNext(java.lang.Object) -> onNext
     80:84:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.internal.operators.observable.ObservableGroupBy$GroupedUnicast -> io.reactivex.internal.operators.observable.i:
+io.reactivex.internal.operators.observable.ObservableGroupBy$GroupedUnicast -> io.reactivex.internal.operators.observable.a:
     io.reactivex.internal.operators.observable.ObservableGroupBy$State state -> c
     187:189:void <init>(java.lang.Object,io.reactivex.internal.operators.observable.ObservableGroupBy$State) -> <init>
     182:183:io.reactivex.internal.operators.observable.ObservableGroupBy$GroupedUnicast createWith(java.lang.Object,int,io.reactivex.internal.operators.observable.ObservableGroupBy$GroupByObserver,boolean) -> a
-    193:194:void subscribeActual(io.reactivex.Observer) -> b
-    205:206:void onComplete() -> onComplete
-    201:202:void onError(java.lang.Throwable) -> onError
-    197:198:void onNext(java.lang.Object) -> onNext
-io.reactivex.internal.operators.observable.ObservableGroupBy$State -> io.reactivex.internal.operators.observable.j:
+    197:198:void onNext(java.lang.Object) -> a
+    201:202:void onError(java.lang.Throwable) -> a
+    205:206:void onComplete() -> a
+io.reactivex.internal.operators.observable.ObservableGroupBy$State -> io.reactivex.internal.operators.observable.b:
     java.util.concurrent.atomic.AtomicBoolean cancelled -> i
-    java.util.concurrent.atomic.AtomicReference actual -> k
     io.reactivex.internal.queue.SpscLinkedArrayQueue queue -> d
     io.reactivex.internal.operators.observable.ObservableGroupBy$GroupByObserver parent -> e
+    java.util.concurrent.atomic.AtomicReference actual -> j
     java.lang.Throwable error -> h
     java.lang.Object key -> c
     boolean delayError -> f
     boolean done -> g
-    java.util.concurrent.atomic.AtomicBoolean once -> j
     227:232:void <init>(int,io.reactivex.internal.operators.observable.ObservableGroupBy$GroupByObserver,java.lang.Object,boolean) -> <init>
-    251:262:void subscribe(io.reactivex.Observer) -> a
     265:267:void onNext(java.lang.Object) -> a
     270:273:void onError(java.lang.Throwable) -> a
     281:312:void drain() -> a
     319:354:boolean checkTerminated(boolean,boolean,io.reactivex.Observer,boolean) -> a
     276:278:void onComplete() -> b
     236:242:void dispose() -> dispose
-io.reactivex.internal.operators.observable.ObservableJust -> io.reactivex.internal.operators.observable.k:
-    java.lang.Object value -> c
-    27:29:void <init>(java.lang.Object) -> <init>
-    33:36:void subscribeActual(io.reactivex.Observer) -> b
-    40:40:java.lang.Object call() -> call
-io.reactivex.internal.operators.observable.ObservableScalarXMap -> io.reactivex.internal.operators.observable.ObservableScalarXMap:
-    51:101:boolean tryScalarXMapSubscribe(io.reactivex.ObservableSource,io.reactivex.Observer,io.reactivex.functions.Function) -> a
-    116:116:io.reactivex.Observable scalarXMap(java.lang.Object,io.reactivex.functions.Function) -> a
 io.reactivex.internal.operators.observable.ObservableScalarXMap$ScalarDisposable -> io.reactivex.internal.operators.observable.ObservableScalarXMap$ScalarDisposable:
     191:194:void <init>(io.reactivex.Observer,java.lang.Object) -> <init>
     223:224:void clear() -> clear
@@ -20302,11 +19934,6 @@ io.reactivex.internal.operators.observable.ObservableScalarXMap$ScalarDisposable
     209:213:java.lang.Object poll() -> poll
     238:242:int requestFusion(int) -> requestFusion
     247:254:void run() -> run
-io.reactivex.internal.operators.observable.ObservableScalarXMap$ScalarXMapObservable -> io.reactivex.internal.operators.observable.ObservableScalarXMap$a:
-    java.lang.Object value -> c
-    io.reactivex.functions.Function mapper -> d
-    132:135:void <init>(java.lang.Object,io.reactivex.functions.Function) -> <init>
-    142:145:void subscribeActual(io.reactivex.Observer) -> b
 io.reactivex.internal.operators.observable.ObserverResourceWrapper -> io.reactivex.internal.operators.observable.ObserverResourceWrapper:
     30:32:void <init>(io.reactivex.Observer) -> <init>
     60:63:void dispose() -> dispose
@@ -20343,26 +19970,26 @@ io.reactivex.internal.queue.SpscLinkedArrayQueue -> io.reactivex.internal.queue.
     java.lang.Object HAS_NEXT -> l
     33:46:void <clinit>() -> <clinit>
     48:59:void <init>(int) -> <init>
+    68:69:boolean offer(java.lang.Object) -> a
     95:97:boolean writeToQueue(java.util.concurrent.atomic.AtomicReferenceArray,java.lang.Object,long,int) -> a
     102:111:void resize(java.util.concurrent.atomic.AtomicReferenceArray,long,int,java.lang.Object,long) -> a
     114:115:void soNext(java.util.concurrent.atomic.AtomicReferenceArray,java.util.concurrent.atomic.AtomicReferenceArray) -> a
     153:160:java.lang.Object newBufferPoll(java.util.concurrent.atomic.AtomicReferenceArray,long,int) -> a
+    186:186:void clear() -> a
     213:214:void adjustLookAheadStep(int) -> a
-    229:229:long lpConsumerIndex() -> a
     237:238:void soConsumerIndex(long) -> a
     241:241:int calcWrappedOffset(long,int) -> a
     247:248:void soElement(java.util.concurrent.atomic.AtomicReferenceArray,int,java.lang.Object) -> a
     251:251:java.lang.Object lvElement(java.util.concurrent.atomic.AtomicReferenceArray,int) -> a
     119:122:java.util.concurrent.atomic.AtomicReferenceArray lvNextBufferAndUnlink(java.util.concurrent.atomic.AtomicReferenceArray,int) -> b
-    225:225:long lpProducerIndex() -> b
+    209:209:boolean isEmpty() -> b
     233:234:void soProducerIndex(long) -> b
     244:244:int calcDirectOffset(int) -> b
-    221:221:long lvConsumerIndex() -> c
-    186:186:void clear() -> clear
-    217:217:long lvProducerIndex() -> d
-    209:209:boolean isEmpty() -> isEmpty
-    68:69:boolean offer(java.lang.Object) -> offer
-    134:148:java.lang.Object poll() -> poll
+    134:148:java.lang.Object poll() -> c
+    229:229:long lpConsumerIndex() -> d
+    225:225:long lpProducerIndex() -> e
+    221:221:long lvConsumerIndex() -> f
+    217:217:long lvProducerIndex() -> g
 io.reactivex.internal.schedulers.AbstractDirectTask -> io.reactivex.internal.schedulers.a:
     40:42:void <clinit>() -> <clinit>
     44:46:void <init>(java.lang.Runnable) -> <init>
@@ -20581,15 +20208,6 @@ io.reactivex.internal.subscriptions.SubscriptionHelper -> io.reactivex.internal.
     80:84:boolean validate(long) -> validate
     28:28:io.reactivex.internal.subscriptions.SubscriptionHelper valueOf(java.lang.String) -> valueOf
     28:28:io.reactivex.internal.subscriptions.SubscriptionHelper[] values() -> values
-io.reactivex.internal.util.AppendOnlyLinkedArrayList -> io.reactivex.internal.util.a:
-    java.lang.Object[] head -> b
-    java.lang.Object[] tail -> c
-    int offset -> d
-    int capacity -> a
-    36:40:void <init>(int) -> <init>
-    48:58:void add(java.lang.Object) -> a
-    137:152:boolean accept(io.reactivex.Observer) -> a
-    65:66:void setFirst(java.lang.Object) -> b
 io.reactivex.internal.util.ArrayListSupplier -> io.reactivex.internal.util.ArrayListSupplier:
     22:21:void <clinit>() -> <clinit>
     21:21:void <init>(java.lang.String,int) -> <init>
@@ -20606,7 +20224,7 @@ io.reactivex.internal.util.AtomicThrowable -> io.reactivex.internal.util.AtomicT
     34:34:boolean addThrowable(java.lang.Throwable) -> addThrowable
     47:47:boolean isTerminated() -> isTerminated
     43:43:java.lang.Throwable terminate() -> terminate
-io.reactivex.internal.util.BackpressureHelper -> io.reactivex.internal.util.b:
+io.reactivex.internal.util.BackpressureHelper -> io.reactivex.internal.util.a:
     35:39:long addCap(long,long) -> a
     67:75:long add(java.util.concurrent.atomic.AtomicLong,long) -> a
     110:122:long produced(java.util.concurrent.atomic.AtomicLong,long) -> b
@@ -20632,16 +20250,15 @@ io.reactivex.internal.util.ErrorMode -> io.reactivex.internal.util.ErrorMode:
     19:19:void <init>(java.lang.String,int) -> <init>
     19:19:io.reactivex.internal.util.ErrorMode valueOf(java.lang.String) -> valueOf
     19:19:io.reactivex.internal.util.ErrorMode[] values() -> values
-io.reactivex.internal.util.ExceptionHelper -> io.reactivex.internal.util.c:
+io.reactivex.internal.util.ExceptionHelper -> io.reactivex.internal.util.b:
     java.lang.Throwable TERMINATED -> a
     53:53:void <clinit>() -> <clinit>
-    40:41:java.lang.RuntimeException wrapOrThrow(java.lang.Throwable) -> a
     57:73:boolean addThrowable(java.util.concurrent.atomic.AtomicReference,java.lang.Throwable) -> a
     77:81:java.lang.Throwable terminate(java.util.concurrent.atomic.AtomicReference) -> a
-io.reactivex.internal.util.ExceptionHelper$Termination -> io.reactivex.internal.util.c$a:
+io.reactivex.internal.util.ExceptionHelper$Termination -> io.reactivex.internal.util.b$a:
     138:139:void <init>() -> <init>
     143:143:java.lang.Throwable fillInStackTrace() -> fillInStackTrace
-io.reactivex.internal.util.HalfSerializer -> io.reactivex.internal.util.d:
+io.reactivex.internal.util.HalfSerializer -> io.reactivex.internal.util.c:
     44:55:void onNext(org.reactivestreams.Subscriber,java.lang.Object,java.util.concurrent.atomic.AtomicInteger,io.reactivex.internal.util.AtomicThrowable) -> a
     68:75:void onError(org.reactivestreams.Subscriber,java.lang.Throwable,java.util.concurrent.atomic.AtomicInteger,io.reactivex.internal.util.AtomicThrowable) -> a
     85:93:void onComplete(org.reactivestreams.Subscriber,java.util.concurrent.atomic.AtomicInteger,io.reactivex.internal.util.AtomicThrowable) -> a
@@ -20698,23 +20315,9 @@ io.reactivex.internal.util.NotificationLite$SubscriptionNotification -> io.react
     org.reactivestreams.Subscription upstream -> c
     68:70:void <init>(org.reactivestreams.Subscription) -> <init>
     74:74:java.lang.String toString() -> toString
-io.reactivex.internal.util.OpenHashSet -> io.reactivex.internal.util.e:
-    java.lang.Object[] keys -> e
-    int maxSize -> d
-    float loadFactor -> a
-    int mask -> b
-    int size -> c
-    37:38:void <init>() -> <init>
-    49:55:void <init>(int,float) -> <init>
-    58:82:boolean add(java.lang.Object) -> a
-    108:128:boolean removeEntry(int,java.lang.Object[],int) -> a
-    163:164:int mix(int) -> a
-    168:168:java.lang.Object[] keys() -> a
-    85:101:boolean remove(java.lang.Object) -> b
-    136:160:void rehash() -> b
-io.reactivex.internal.util.Pow2 -> io.reactivex.internal.util.f:
+io.reactivex.internal.util.Pow2 -> io.reactivex.internal.util.d:
     33:33:int roundToPowerOfTwo(int) -> a
-io.reactivex.internal.util.QueueDrainHelper -> io.reactivex.internal.util.g:
+io.reactivex.internal.util.QueueDrainHelper -> io.reactivex.internal.util.e:
     214:217:io.reactivex.internal.fuseable.SimpleQueue createQueue(int) -> a
     227:228:void request(org.reactivestreams.Subscription,int) -> a
 io.reactivex.internal.util.VolatileSizeArrayList -> io.reactivex.internal.util.VolatileSizeArrayList:
@@ -20746,7 +20349,7 @@ io.reactivex.internal.util.VolatileSizeArrayList -> io.reactivex.internal.util.V
     61:61:java.lang.Object[] toArray() -> toArray
     66:66:java.lang.Object[] toArray(java.lang.Object[]) -> toArray
     185:185:java.lang.String toString() -> toString
-io.reactivex.observables.GroupedObservable -> io.reactivex.o.a:
+io.reactivex.observables.GroupedObservable -> io.reactivex.n.a:
     41:43:void <init>(java.lang.Object) -> <init>
 io.reactivex.observers.BaseTestConsumer$1 -> io.reactivex.observers.a:
 io.reactivex.observers.BaseTestConsumer$TestWaitStrategy -> io.reactivex.observers.BaseTestConsumer$TestWaitStrategy:
@@ -20775,21 +20378,6 @@ io.reactivex.observers.BaseTestConsumer$TestWaitStrategy$6 -> io.reactivex.obser
     939:939:void <init>(java.lang.String,int) -> <init>
     942:943:void run() -> run
 io.reactivex.observers.LambdaConsumerIntrospection -> io.reactivex.observers.b:
-io.reactivex.observers.SerializedObserver -> io.reactivex.observers.c:
-    io.reactivex.internal.util.AppendOnlyLinkedArrayList queue -> g
-    boolean emitting -> f
-    boolean done -> h
-    io.reactivex.disposables.Disposable upstream -> e
-    io.reactivex.Observer downstream -> c
-    boolean delayError -> d
-    51:52:void <init>(io.reactivex.Observer) -> <init>
-    61:64:void <init>(io.reactivex.Observer,boolean) -> <init>
-    186:193:void emitLoop() -> a
-    77:78:void dispose() -> dispose
-    159:177:void onComplete() -> onComplete
-    118:146:void onError(java.lang.Throwable) -> onError
-    87:109:void onNext(java.lang.Object) -> onNext
-    68:73:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
 io.reactivex.parallel.ParallelFailureHandling -> io.reactivex.parallel.ParallelFailureHandling:
     27:23:void <clinit>() -> <clinit>
     23:23:void <init>(java.lang.String,int) -> <init>
@@ -20797,44 +20385,12 @@ io.reactivex.parallel.ParallelFailureHandling -> io.reactivex.parallel.ParallelF
     43:43:io.reactivex.parallel.ParallelFailureHandling apply(java.lang.Long,java.lang.Throwable) -> apply
     23:23:io.reactivex.parallel.ParallelFailureHandling valueOf(java.lang.String) -> valueOf
     23:23:io.reactivex.parallel.ParallelFailureHandling[] values() -> values
-io.reactivex.plugins.RxJavaPlugins -> io.reactivex.p.a:
+io.reactivex.plugins.RxJavaPlugins -> io.reactivex.o.a:
     io.reactivex.functions.Consumer errorHandler -> a
-    io.reactivex.functions.Function onObservableAssembly -> b
-    io.reactivex.functions.BiFunction onObservableSubscribe -> c
     396:423:boolean isBug(java.lang.Throwable) -> a
-    939:943:io.reactivex.Observer onSubscribe(io.reactivex.Observable,io.reactivex.Observer) -> a
-    1052:1056:io.reactivex.Observable onAssembly(io.reactivex.Observable) -> a
-    1268:1270:java.lang.Object apply(io.reactivex.functions.Function,java.lang.Object) -> a
-    1288:1290:java.lang.Object apply(io.reactivex.functions.BiFunction,java.lang.Object,java.lang.Object) -> a
     361:384:void onError(java.lang.Throwable) -> b
     427:430:void uncaught(java.lang.Throwable) -> c
-io.reactivex.schedulers.SchedulerRunnableIntrospection -> io.reactivex.q.a:
-io.reactivex.subjects.PublishSubject -> io.reactivex.r.a:
-    io.reactivex.subjects.PublishSubject$PublishDisposable[] TERMINATED -> e
-    io.reactivex.subjects.PublishSubject$PublishDisposable[] EMPTY -> f
-    java.lang.Throwable error -> d
-    java.util.concurrent.atomic.AtomicReference subscribers -> c
-    101:104:void <clinit>() -> <clinit>
-    128:130:void <init>() -> <init>
-    160:174:boolean add(io.reactivex.subjects.PublishSubject$PublishDisposable) -> a
-    134:150:void subscribeActual(io.reactivex.Observer) -> b
-    184:186:void remove(io.reactivex.subjects.PublishSubject$PublishDisposable) -> b
-    120:120:io.reactivex.subjects.PublishSubject create() -> c
-    250:256:void onComplete() -> onComplete
-    235:245:void onError(java.lang.Throwable) -> onError
-    226:230:void onNext(java.lang.Object) -> onNext
-    219:222:void onSubscribe(io.reactivex.disposables.Disposable) -> onSubscribe
-io.reactivex.subjects.PublishSubject$PublishDisposable -> io.reactivex.r.a$a:
-    io.reactivex.subjects.PublishSubject parent -> d
-    io.reactivex.Observer downstream -> c
-    301:304:void <init>(io.reactivex.Observer,io.reactivex.subjects.PublishSubject) -> <init>
-    307:310:void onNext(java.lang.Object) -> a
-    313:318:void onError(java.lang.Throwable) -> a
-    335:335:boolean isDisposed() -> a
-    321:324:void onComplete() -> b
-    328:331:void dispose() -> dispose
-io.reactivex.subjects.Subject -> io.reactivex.r.b:
-    29:29:void <init>() -> <init>
+io.reactivex.schedulers.SchedulerRunnableIntrospection -> io.reactivex.p.a:
 kotlin.DeprecationLevel -> kotlin.DeprecationLevel:
     63:63:void <init>(java.lang.String,int) -> <init>
 kotlin.Experimental$Level -> kotlin.Experimental$Level:

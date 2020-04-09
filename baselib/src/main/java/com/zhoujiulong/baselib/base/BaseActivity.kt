@@ -9,10 +9,6 @@ abstract class BaseActivity<T : BasePresenter<*, *>> : SimpleActivity(),
     BaseView {
 
     /**
-     * 網絡請求標記tag
-     */
-    protected var ReTag = System.currentTimeMillis().toString()
-    /**
      * 用于添加rx的监听的在onDestroy中记得关闭不然会内存泄漏。
      */
     private var mCompositeDisposable: CompositeDisposable? = null

@@ -1,5 +1,6 @@
 package com.zhoujiulong.baselib.http
 
+import com.zhoujiulong.baselib.app.ActivityFragmentManager
 import com.zhoujiulong.baselib.http.listener.DownLoadListener
 import com.zhoujiulong.baselib.http.listener.OnTokenInvalidListener
 import com.zhoujiulong.baselib.http.listener.RequestListener
@@ -76,6 +77,7 @@ internal class RequestHelper private constructor() {
         call.enqueue(object : Callback<T> {
             //异步请求
             override fun onResponse(call: Call<T>, response: Response<T>) {
+                //判断请求是否取消了，如果取消了就不再往下执行
                 if (!RequestManager.instance.hasRequest(tag)) return
                 RequestManager.instance.removeCall(tag, call)
                 val code = response.code()
@@ -109,7 +111,10 @@ internal class RequestHelper private constructor() {
                     if (body is BaseResponse) {//判断返回的数据类型是否是继承 BaseResponse
                         val baseResponse = body as BaseResponse
                         if (CodeConstant.REQUEST_SUCCESS_CODE == baseResponse.code) {//获取数据正常
-                            listener.requestSuccess(response.body() as T)
+                            //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
+                            if (ActivityFragmentManager.getInstance().isReTagExist(tag)) {
+                                listener.requestSuccess(response.body() as T)
+                            }
                             //{"message":"未登录或token失效","code":1002}
                         } else if (CodeConstant.ON_TOKEN_INVALID_CODE == baseResponse.code) {//Token失效
                             if (mOnTokenInvalidListener != null && !listener.checkLogin(

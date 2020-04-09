@@ -1,6 +1,7 @@
 package com.zhoujiulong.assembly_b
 
-import com.zhoujiulong.baselib.base.SimpleApplication
+import com.zhoujiulong.baselib.app.SimpleApplication
+
 
 /**
  * @author zhoujiulong

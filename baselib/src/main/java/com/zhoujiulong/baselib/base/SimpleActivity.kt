@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentActivity
+import com.zhoujiulong.baselib.app.ActivityFragmentManager
 
 /**
  * Author : zhoujiulong
@@ -18,7 +19,10 @@ import androidx.fragment.app.FragmentActivity
  */
 abstract class SimpleActivity : FragmentActivity(), View.OnClickListener {
 
-    protected val TAG = this.javaClass.name
+    /**
+     * 網絡請求標記tag
+     */
+    val ReTag = System.currentTimeMillis().toString()
 
     protected lateinit var mContext: Context
     protected lateinit var mActivity: Activity
@@ -26,22 +30,22 @@ abstract class SimpleActivity : FragmentActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
-        ActivityManager.getInstance()?.addActivity(this)
+        ActivityFragmentManager.getInstance().addActivity(this)
 
         mContext = this
         mActivity = this
 
-        initView()
         initPresenter()
         attachView()
+        initView()
         initListener()
         initData()
         getData()
     }
 
     override fun onDestroy() {
+        ActivityFragmentManager.getInstance().removeActivity(this)
         detachView()
-        ActivityManager.getInstance()?.removeActivity(this)
         super.onDestroy()
     }
 
@@ -54,16 +58,16 @@ abstract class SimpleActivity : FragmentActivity(), View.OnClickListener {
     protected abstract fun getLayoutId(): Int
 
     /**
-     * 初始化控件
-     */
-    protected abstract fun initView()
-
-    /**
      * 初始化逻辑处理层
      */
     protected abstract fun initPresenter()
 
     protected abstract fun attachView()
+
+    /**
+     * 初始化控件
+     */
+    protected abstract fun initView()
 
     /**
      * 初始化监听事件
