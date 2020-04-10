@@ -40,7 +40,7 @@
     1、避免重复依赖，此案例中将所有的依赖库放到跟目录下的build.gradle中，在baselib中使用api方式
     添加全部依赖，在组件中根据运行方式动态设置使用compileOnly依赖或者使用api依赖
     2、避免资源文件重命名，如果有重命名的打包的时候会取主项目中的舍弃其它model中的，可以在每个model
-    中的build.gradle中添加通配符进行资源文件名的限定，如： resourcePrefix "assemblya_"
+    中的build.gradle中添加通配符进行资源文件名的限定，如： resourcePrefix "a_"
     3、组件间跳转，此案例采用的是阿里的ARouter进行跳转的
     
     
