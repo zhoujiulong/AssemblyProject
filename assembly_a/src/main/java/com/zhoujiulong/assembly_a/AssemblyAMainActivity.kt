@@ -6,17 +6,18 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.zhoujiulong.baselib.base.BaseActivity
 import com.zhoujiulong.baselib.base.emptyimpl.EmptyPresenter
 import com.zhoujiulong.baselib.image.ImageLoader
-import com.zhoujiulong.commonlib.constants.ActivityRouteNameConstants
-import kotlinx.android.synthetic.main.assemblya_activity_assembly_a_main.*
+import com.zhoujiulong.commonlib.constants.RouteGroupConstants
+import com.zhoujiulong.commonlib.constants.RouteNameConstants
+import kotlinx.android.synthetic.main.a_activity_assembly_a_main.*
 
 /**
  * @author zhoujiulong
  * @createtime 2019/9/6 14:58
  */
-@Route(path = ActivityRouteNameConstants.ASSEMBLY_A_MAIN, group = "assembly_a")
+@Route(path = RouteNameConstants.ASSEMBLY_A_MAIN, group = RouteGroupConstants.ASSEMBLY_A)
 class AssemblyAMainActivity : BaseActivity<EmptyPresenter>() {
 
-    override fun getLayoutId(): Int = R.layout.assemblya_activity_assembly_a_main
+    override fun getLayoutId(): Int = R.layout.a_activity_assembly_a_main
 
     override fun initPresenter() {
     }
@@ -36,7 +37,7 @@ class AssemblyAMainActivity : BaseActivity<EmptyPresenter>() {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_go_b -> ARouter.getInstance().build(ActivityRouteNameConstants.ASSEMBLY_B_MAIN).navigation()
+            tv_go_b -> ARouter.getInstance().build(RouteNameConstants.ASSEMBLY_B_MAIN).navigation()
             btDownPic -> {
                 val url =
                     "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1946151466,3034958414&fm=26&gp=0.jpg"

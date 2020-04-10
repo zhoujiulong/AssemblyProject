@@ -79,7 +79,7 @@ android {
         }
     }
 
-    resourcePrefix "assemblya_"
+    resourcePrefix "a_"
 }
 
 dependencies {

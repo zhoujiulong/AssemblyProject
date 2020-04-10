@@ -3,7 +3,7 @@ package com.zhoujiulong.assemblyproject
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.zhoujiulong.baselib.base.BaseActivity
-import com.zhoujiulong.commonlib.constants.ActivityRouteNameConstants
+import com.zhoujiulong.commonlib.constants.RouteNameConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
@@ -29,8 +29,8 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
 
     override fun onClick(v: View?) {
         when (v) {
-            tv_go_a -> ARouter.getInstance().build(ActivityRouteNameConstants.ASSEMBLY_A_MAIN).navigation()
-            tv_go_b -> ARouter.getInstance().build(ActivityRouteNameConstants.ASSEMBLY_B_MAIN).navigation()
+            tv_go_a -> ARouter.getInstance().build(RouteNameConstants.ASSEMBLY_A_MAIN).navigation()
+            tv_go_b -> ARouter.getInstance().build(RouteNameConstants.ASSEMBLY_B_MAIN).navigation()
             tv_download_file -> mPresenter?.downLoadApk()
         }
     }
