@@ -1,10 +1,9 @@
 package com.zhoujiulong.assemblyproject
 
-import com.zhoujiulong.baselib.base.BasePresenter
 import com.zhoujiulong.baselib.http.listener.DownLoadListener
 import com.zhoujiulong.baselib.utils.ContextUtil
 
-class MainPresenter : BasePresenter<MainModel, MainContract.View>(), MainContract.Presenter {
+class MainPresenter : MainContract.Presenter() {
 
     override fun initModel() = MainModel()
 

@@ -1,10 +1,9 @@
 package com.zhoujiulong.assemblyproject
 
-import com.zhoujiulong.baselib.base.BaseModel
 import com.zhoujiulong.baselib.http.HttpUtil
 import com.zhoujiulong.baselib.http.listener.DownLoadListener
 
-class MainModel : BaseModel<MainServices>(), MainContract.Model {
+class MainModel : MainContract.Model() {
 
     override fun initService() = HttpUtil.getService(MainServices::class.java)
 

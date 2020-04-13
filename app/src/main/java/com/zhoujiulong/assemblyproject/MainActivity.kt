@@ -6,7 +6,7 @@ import com.zhoujiulong.baselib.base.BaseActivity
 import com.zhoujiulong.commonlib.constants.RouteNameConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
+class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
