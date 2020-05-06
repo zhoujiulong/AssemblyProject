@@ -23,6 +23,7 @@ abstract class SimpleActivity : FragmentActivity(), View.OnClickListener {
      * 網絡請求標記tag
      */
     val ReTag = System.currentTimeMillis().toString()
+    private var mISFirstResume = true
 
     protected lateinit var mContext: Context
     protected lateinit var mActivity: Activity
@@ -34,13 +35,20 @@ abstract class SimpleActivity : FragmentActivity(), View.OnClickListener {
 
         mContext = this
         mActivity = this
+    }
 
-        initPresenter()
-        attachView()
-        initView()
-        initListener()
-        initData()
-        getData()
+    override fun onResume() {
+        super.onResume()
+        if (mISFirstResume) {
+            mISFirstResume = false
+
+            initPresenter()
+            attachView()
+            initView()
+            initListener()
+            initData()
+            getData()
+        }
     }
 
     override fun onDestroy() {

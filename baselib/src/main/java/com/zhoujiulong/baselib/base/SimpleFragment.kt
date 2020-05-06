@@ -22,6 +22,7 @@ abstract class SimpleFragment : Fragment(), View.OnClickListener {
      * 網絡請求標記tag
      */
     val ReTag = System.currentTimeMillis().toString()
+    private var mISFirstResume = true
 
     protected var mContext: Context? = null
     protected var mActivity: Activity? = null
@@ -40,19 +41,24 @@ abstract class SimpleFragment : Fragment(), View.OnClickListener {
         return mRootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initPresenter()
-        attachView()
-        initView()
-        initListener()
-        initData()
-        getData()
+    override fun onResume() {
+        super.onResume()
+        if (mISFirstResume) {
+            mISFirstResume = false
 
-        mIsPrepared = true
-        if (userVisibleHint && mIsFirstTimeLoadData) {
-            mIsFirstTimeLoadData = false
-            getDataLazy()
+            initPresenter()
+            attachView()
+            initView()
+            initListener()
+            initData()
+            getData()
+
+            //懒加载，有可能先执行此处再执行 setUserVisibleHint 方法
+            mIsPrepared = true
+            if (userVisibleHint && mIsFirstTimeLoadData) {
+                mIsFirstTimeLoadData = false
+                getDataLazy()
+            }
         }
     }
 
