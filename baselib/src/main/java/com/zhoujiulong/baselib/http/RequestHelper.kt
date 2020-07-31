@@ -2,7 +2,6 @@ package com.zhoujiulong.baselib.http
 
 import android.os.Handler
 import android.os.Looper
-import com.zhoujiulong.baselib.app.ActivityFragmentManager
 import com.zhoujiulong.baselib.http.listener.DownLoadListener
 import com.zhoujiulong.baselib.http.listener.OnTokenInvalidListener
 import com.zhoujiulong.baselib.http.listener.RequestListener
@@ -105,10 +104,7 @@ internal class RequestHelper private constructor() {
                     if (body is BaseResponse) {//判断返回的数据类型是否是继承 BaseResponse
                         val baseResponse = body as BaseResponse
                         if (CodeConstant.REQUEST_SUCCESS_CODE == baseResponse.code) {//获取数据正常
-                            //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-                            if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
-                                listener.requestSuccess(response.body() as T)
-                            }
+                            listener.requestSuccess(response.body() as T)
                             //{"message":"未登录或token失效","code":1002}
                         } else if (CodeConstant.ON_TOKEN_INVALID_CODE == baseResponse.code) {//Token失效
                             if (mOnTokenInvalidListener != null && !listener.checkLogin(
@@ -201,61 +197,56 @@ internal class RequestHelper private constructor() {
                 if (file.exists()) file =
                     File(saveFile, "${System.currentTimeMillis()}${fileName}")
                 val filePath = file.absolutePath
-                //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-                if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
-                    val handler = Handler(Looper.getMainLooper())
-                    Thread(Runnable {
-                        var fos: BufferedOutputStream? = null
-                        var fis: BufferedInputStream? = null
-                        try {
-                            val total = response.body()!!.contentLength()
-                            fis = BufferedInputStream(response.body()!!.byteStream())
-                            fos = BufferedOutputStream(FileOutputStream(filePath))
-                            var sum: Long = 0
-                            val buf = ByteArray(2048)
-                            var len: Int = fis.read(buf)
-                            var tempProgress = -1
-                            while (len != -1) {
-                                fos.write(buf, 0, len)
-                                sum += len.toLong()
-                                val progress = (sum * 100 / total).toInt()
-                                //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-                                if (progress > tempProgress
-                                    && ActivityFragmentManager.getInstance().isReTagExist(reTag)
-                                ) {
-                                    tempProgress = progress
-                                    handler.post { downloadListener.onProgress(progress) }
-                                } else {
-                                    break
-                                }
-                                len = fis.read(buf)
-                            }
-                            fos.flush()
+                val handler = Handler(Looper.getMainLooper())
+                Thread(Runnable {
+                    var fos: BufferedOutputStream? = null
+                    var fis: BufferedInputStream? = null
+                    try {
+                        val total = response.body()!!.contentLength()
+                        fis = BufferedInputStream(response.body()!!.byteStream())
+                        fos = BufferedOutputStream(FileOutputStream(filePath))
+                        var sum: Long = 0
+                        val buf = ByteArray(2048)
+                        var len: Int = fis.read(buf)
+                        var tempProgress = -1
+                        while (len != -1) {
+                            fos.write(buf, 0, len)
+                            sum += len.toLong()
+                            val progress = (sum * 100 / total).toInt()
                             //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-                            if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
-                                handler.post { downloadListener.onDone(filePath) }
+                            if (progress > tempProgress && RequestManager.instance.hasRequest(reTag)) {
+                                tempProgress = progress
+                                handler.post { downloadListener.onProgress(progress) }
+                            } else {
+                                break
                             }
-                        } catch (e: Exception) {
-                            downLoadFileFail(reTag, e, downloadListener, handler)
-                        } finally {
-                            try {
-                                response.body()!!.byteStream().close()
-                            } catch (e: IOException) {
-                                downLoadFileFail(reTag, e, downloadListener, handler)
-                            }
-                            try {
-                                fis?.close()
-                            } catch (e: IOException) {
-                                downLoadFileFail(reTag, e, downloadListener, handler)
-                            }
-                            try {
-                                fos?.close()
-                            } catch (e: IOException) {
-                                downLoadFileFail(reTag, e, downloadListener, handler)
-                            }
+                            len = fis.read(buf)
                         }
-                    }).start()
-                }
+                        fos.flush()
+                        //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
+                        if (RequestManager.instance.hasRequest(reTag)) {
+                            handler.post { downloadListener.onDone(filePath) }
+                        }
+                    } catch (e: Exception) {
+                        downLoadFileFail(reTag, e, downloadListener, handler)
+                    } finally {
+                        try {
+                            response.body()!!.byteStream().close()
+                        } catch (e: IOException) {
+                            downLoadFileFail(reTag, e, downloadListener, handler)
+                        }
+                        try {
+                            fis?.close()
+                        } catch (e: IOException) {
+                            downLoadFileFail(reTag, e, downloadListener, handler)
+                        }
+                        try {
+                            fos?.close()
+                        } catch (e: IOException) {
+                            downLoadFileFail(reTag, e, downloadListener, handler)
+                        }
+                    }
+                }).start()
             }
 
             override fun onFailure(call: Call<ResponseBody>, throwable: Throwable) {
@@ -267,13 +258,10 @@ internal class RequestHelper private constructor() {
     }
 
     private fun downLoadFileFail(
-        reTag: String,
-        e: Exception,
-        downloadListener: DownLoadListener,
-        handler: Handler
+        reTag: String, e: Exception, downloadListener: DownLoadListener, handler: Handler
     ) {
         //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-        if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
+        if (RequestManager.instance.hasRequest(reTag)) {
             handler.post { downloadListener.onFail("下载文件失败：" + e.message) }
         }
     }

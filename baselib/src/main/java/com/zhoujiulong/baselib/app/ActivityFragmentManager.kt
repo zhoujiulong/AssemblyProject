@@ -118,19 +118,6 @@ class ActivityFragmentManager private constructor() {
     }
 
     /**
-     * 判断网络请求的 ReTag 所在的 Activity 或者 Fragment 是否存在
-     */
-    fun isReTagExist(reTag: String): Boolean {
-        fragmentStack.forEach {
-            if (it.ReTag == reTag) return true
-        }
-        activityStack.forEach {
-            if (it.ReTag == reTag) return true
-        }
-        return false
-    }
-
-    /**
      * 退出应用程序
      */
     fun appExit() {

@@ -47,7 +47,7 @@ internal class RequestManager private constructor() {
      */
     @Synchronized
     fun cancelRequestWithTag(reTag: String) {
-        if (mCallMap.containsKey(reTag) && mCallMap[reTag] != null) {
+        if (mCallMap.containsKey(reTag)) {
             val callList = mCallMap[reTag]
             if (callList != null && callList.isNotEmpty()) {
                 for (call in callList) {
@@ -78,12 +78,12 @@ internal class RequestManager private constructor() {
      */
     @Synchronized
     fun removeCall(reTag: String, call: Call<*>) {
-        if (mCallMap.containsKey(reTag) && mCallMap[reTag] != null) {
+        if (mCallMap.containsKey(reTag)) {
             val callList = mCallMap[reTag]
-            if (callList!!.contains(call)) {
+            if (callList != null && callList.contains(call)) {
                 callList.remove(call)
             }
-            if (callList.size == 0) {
+            if (callList.isNullOrEmpty()) {
                 mCallMap.remove(reTag)
             }
         }
