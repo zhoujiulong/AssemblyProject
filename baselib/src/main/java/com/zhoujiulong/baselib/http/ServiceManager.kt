@@ -57,7 +57,7 @@ internal class ServiceManager private constructor() {
     </T> */
     @Synchronized
     fun <T> getService(
-        callClass: Class<T>, baseUrl: String?,
+        callClass: Class<T>, baseUrl: String,
         tempInterceptor: List<Interceptor>? = null, vararg timeOuts: TimeOut
     ): T {
         val key =

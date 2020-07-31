@@ -14,7 +14,10 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.*
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 /**
  * Author : zhoujiulong
@@ -175,7 +178,6 @@ internal class RequestHelper private constructor() {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (!RequestManager.instance.hasRequest(reTag)) return
-                RequestManager.instance.removeCall(reTag, call)
                 if (response.code() != 200) {
                     if (response.code() == 502 || response.code() == 404) {
                         downloadListener.onFail(response.code().toString() + "服务器异常，请稍后重试")
@@ -199,16 +201,16 @@ internal class RequestHelper private constructor() {
                 val filePath = file.absolutePath
                 val handler = Handler(Looper.getMainLooper())
                 Thread(Runnable {
-                    var fos: BufferedOutputStream? = null
-                    var fis: BufferedInputStream? = null
+                    var fos: FileOutputStream? = null
+                    var bis: BufferedInputStream? = null
                     try {
                         val total = response.body()!!.contentLength()
-                        fis = BufferedInputStream(response.body()!!.byteStream())
-                        fos = BufferedOutputStream(FileOutputStream(filePath))
+                        bis = BufferedInputStream(response.body()!!.byteStream())
+                        fos = FileOutputStream(file)
                         var sum: Long = 0
                         val buf = ByteArray(2048)
-                        var len: Int = fis.read(buf)
                         var tempProgress = -1
+                        var len: Int = bis.read(buf)
                         while (len != -1) {
                             fos.write(buf, 0, len)
                             sum += len.toLong()
@@ -220,7 +222,7 @@ internal class RequestHelper private constructor() {
                             } else {
                                 break
                             }
-                            len = fis.read(buf)
+                            len = bis.read(buf)
                         }
                         fos.flush()
                         //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
@@ -230,13 +232,14 @@ internal class RequestHelper private constructor() {
                     } catch (e: Exception) {
                         downLoadFileFail(reTag, e, downloadListener, handler)
                     } finally {
+                        RequestManager.instance.removeCall(reTag, call)
                         try {
                             response.body()!!.byteStream().close()
                         } catch (e: IOException) {
                             downLoadFileFail(reTag, e, downloadListener, handler)
                         }
                         try {
-                            fis?.close()
+                            bis?.close()
                         } catch (e: IOException) {
                             downLoadFileFail(reTag, e, downloadListener, handler)
                         }
