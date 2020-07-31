@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
  */
 internal class ServiceManager private constructor() {
 
-    val baseUrl: String = BuildConfig.BASE_URL
+    val mBaseUrl: String = BuildConfig.BASE_URL
     private val mIsDebug: Boolean = BuildConfig.DEBUG_MODE
     private var mHeaderInterceptor: ArrayList<Interceptor> = arrayListOf()
     private val mRetrofits: MutableMap<String, Retrofit> = HashMap()
@@ -50,26 +50,18 @@ internal class ServiceManager private constructor() {
      * 获取 Call ，使用传入的 BaseUrl
      *
      * @param callClass 需要获取的 Call 对应的 Class
-     * @param timeOuts  TimeOut 超时设置，可变参数，不设置使用默认的
-     * @param <T>       返回的 Call 类型
-    </T> */
-    @Synchronized
-    fun <T> getService(callClass: Class<T>, vararg timeOuts: TimeOut): T {
-        return getService(callClass, baseUrl, *timeOuts)
-    }
-
-    /**
-     * 获取 Call ，使用传入的 BaseUrl
-     *
-     * @param callClass 需要获取的 Call 对应的 Class
      * @param baseUrl   BaseUrl
+     * @param tempInterceptor 临时的拦截器
      * @param timeOuts  TimeOut 超时设置，可变参数，不设置使用默认的
      * @param <T>       返回的 Call 类型
     </T> */
     @Synchronized
-    fun <T> getService(callClass: Class<T>, baseUrl: String, vararg timeOuts: TimeOut): T {
+    fun <T> getService(
+        callClass: Class<T>, baseUrl: String?,
+        tempInterceptor: List<Interceptor>? = null, vararg timeOuts: TimeOut
+    ): T {
         val key =
-            StringBuilder().append(mHeaderInterceptor.size)
+            StringBuilder().append(mHeaderInterceptor.size).append(tempInterceptor?.hashCode() ?: 0)
                 .append(mIsDebug).append(baseUrl).append(JsonUtil.object2String(timeOuts))
                 .toString()
         var retrofit: Retrofit? = null
@@ -90,8 +82,9 @@ internal class ServiceManager private constructor() {
             }
             val builder = OkHttpClient.Builder()
             mHeaderInterceptor.forEach { builder.addInterceptor(it) }
+            tempInterceptor?.forEach { builder.addInterceptor(it) }
             if (mIsDebug) {
-                //配置消息头和打印日志等
+                //配置消息头和打印日志等，下载大文件时这里会将文件整个加载到内存中需要注意
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 builder.addInterceptor(loggingInterceptor)

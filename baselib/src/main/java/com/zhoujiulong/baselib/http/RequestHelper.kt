@@ -15,10 +15,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
 
 /**
  * Author : zhoujiulong
@@ -201,33 +198,37 @@ internal class RequestHelper private constructor() {
                     return
                 }
                 var file = File(saveFile, fileName)
-                if (file.exists()) file = File(saveFile, "${System.currentTimeMillis()}${fileName}")
+                if (file.exists()) file =
+                    File(saveFile, "${System.currentTimeMillis()}${fileName}")
                 val filePath = file.absolutePath
                 //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
                 if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
-                    downloadListener.onStart()
                     val handler = Handler(Looper.getMainLooper())
                     Thread(Runnable {
-                        var ips: InputStream? = null
-                        var fos: FileOutputStream? = null
+                        var fos: BufferedOutputStream? = null
+                        var fis: BufferedInputStream? = null
                         try {
-                            ips = response.body()!!.byteStream()
                             val total = response.body()!!.contentLength()
-                            fos = FileOutputStream(filePath)
+                            fis = BufferedInputStream(response.body()!!.byteStream())
+                            fos = BufferedOutputStream(FileOutputStream(filePath))
                             var sum: Long = 0
                             val buf = ByteArray(2048)
-                            var len: Int = ips!!.read(buf)
+                            var len: Int = fis.read(buf)
+                            var tempProgress = -1
                             while (len != -1) {
                                 fos.write(buf, 0, len)
                                 sum += len.toLong()
                                 val progress = (sum * 100 / total).toInt()
                                 //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-                                if (ActivityFragmentManager.getInstance().isReTagExist(reTag)) {
+                                if (progress > tempProgress
+                                    && ActivityFragmentManager.getInstance().isReTagExist(reTag)
+                                ) {
+                                    tempProgress = progress
                                     handler.post { downloadListener.onProgress(progress) }
                                 } else {
                                     break
                                 }
-                                len = ips.read(buf)
+                                len = fis.read(buf)
                             }
                             fos.flush()
                             //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
@@ -238,7 +239,12 @@ internal class RequestHelper private constructor() {
                             downLoadFileFail(reTag, e, downloadListener, handler)
                         } finally {
                             try {
-                                ips?.close()
+                                response.body()!!.byteStream().close()
+                            } catch (e: IOException) {
+                                downLoadFileFail(reTag, e, downloadListener, handler)
+                            }
+                            try {
+                                fis?.close()
                             } catch (e: IOException) {
                                 downLoadFileFail(reTag, e, downloadListener, handler)
                             }

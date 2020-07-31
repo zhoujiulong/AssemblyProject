@@ -1,8 +1,6 @@
 package com.zhoujiulong.baselib.http.listener
 
 
-import java.io.File
-
 /**
  * Author : zhoujiulong
  * Email : 754667445@qq.com
@@ -10,11 +8,6 @@ import java.io.File
  * Desc : 下载监听
  */
 abstract class DownLoadListener {
-
-    /**
-     * 下载开始
-     */
-    open fun onStart() {}
 
     /**
      * 下载进度

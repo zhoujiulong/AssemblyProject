@@ -19,8 +19,8 @@ object HttpUtil {
     /**
      * 获取BaseUrl
      */
-    val baseUrl: String
-        get() = ServiceManager.instance.baseUrl
+    val mBaseUrl: String
+        get() = ServiceManager.instance.mBaseUrl
 
     /**
      * 设置 Token 失效回调，全局只调用一次，建议在 Application 中设置
@@ -37,28 +37,22 @@ object HttpUtil {
     }
 
     /**
-     * 获取 Call ，使用默认的 BaseUrl
-     *
-     * @param callClass 需要获取的 Call 对应的 Class
-     * @param timeOuts  TimeOut 超时设置，可变参数，不设置使用默认的
-     * @param <T>       返回的 Call 类型
-    </T> */
-    @Synchronized
-    fun <T> getService(callClass: Class<T>, vararg timeOuts: TimeOut): T {
-        return ServiceManager.instance.getService(callClass, *timeOuts)
-    }
-
-    /**
      * 获取 Call ，使用传入的 BaseUrl
      *
      * @param callClass 需要获取的 Call 对应的 Class
      * @param baseUrl   BaseUrl
+     * @param tempInterceptor 临时的拦截器
      * @param timeOuts  TimeOut 超时设置，可变参数，不设置使用默认的
      * @param <T>       返回的 Call 类型
     </T> */
     @Synchronized
-    fun <T> getService(callClass: Class<T>, baseUrl: String, vararg timeOuts: TimeOut): T {
-        return ServiceManager.instance.getService(callClass, baseUrl, *timeOuts)
+    fun <T> getService(
+        callClass: Class<T>, baseUrl: String = mBaseUrl,
+        tempInterceptor: List<Interceptor>? = null, vararg timeOuts: TimeOut
+    ): T {
+        return ServiceManager.instance.getService(
+            callClass, baseUrl, tempInterceptor, timeOuts = *timeOuts
+        )
     }
 
     /**
