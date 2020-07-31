@@ -9,7 +9,7 @@ class MainPresenter : MainContract.Presenter() {
 
     override fun downLoadApk() {
         val fileDir = ContextUtil.getContext().cacheDir.absolutePath
-        val fileName = "downLoad.apk"
+        val fileName = "downLoad2.apk"
         mView?.showLoading()
         mModel?.downLoadApk(object : DownLoadListener() {
             override fun onProgress(progress: Int) {

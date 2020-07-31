@@ -208,7 +208,7 @@ internal class RequestHelper private constructor() {
                         bis = BufferedInputStream(response.body()!!.byteStream())
                         fos = FileOutputStream(file)
                         var sum: Long = 0
-                        val buf = ByteArray(2048)
+                        val buf = ByteArray(1024 * 10)
                         var tempProgress = -1
                         var len: Int = bis.read(buf)
                         while (len != -1) {
@@ -216,9 +216,11 @@ internal class RequestHelper private constructor() {
                             sum += len.toLong()
                             val progress = (sum * 100 / total).toInt()
                             //再次判断请求所在的页面是否销毁了，如果销毁了不再往下执行
-                            if (progress > tempProgress && RequestManager.instance.hasRequest(reTag)) {
-                                tempProgress = progress
-                                handler.post { downloadListener.onProgress(progress) }
+                            if (RequestManager.instance.hasRequest(reTag)) {
+                                if (progress > tempProgress) {
+                                    tempProgress = progress
+                                    handler.post { downloadListener.onProgress(progress) }
+                                }
                             } else {
                                 break
                             }

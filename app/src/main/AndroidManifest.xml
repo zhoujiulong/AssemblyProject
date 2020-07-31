@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.zhoujiulong.assemblyproject">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".AppApplication"
             android:allowBackup="true"
