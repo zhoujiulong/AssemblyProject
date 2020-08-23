@@ -89,7 +89,6 @@ dependencies {
         api project(':commonlib')
     } else {
         compileOnly project(':commonlib')
-        api project(':reslib')
     }
 
     kapt arouter_annotation
