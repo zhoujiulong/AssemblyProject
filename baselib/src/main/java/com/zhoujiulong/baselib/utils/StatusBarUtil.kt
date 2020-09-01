@@ -185,23 +185,23 @@ object StatusBarUtil {
 
     @TargetApi(23)
     private fun changeStatusBarModeRetainFlag(window: Window, out: Int): Int {
-        var out = out
-        out = retainSystemUiFlag(window, out, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        out = retainSystemUiFlag(window, out, View.SYSTEM_UI_FLAG_FULLSCREEN)
-        out = retainSystemUiFlag(window, out, View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-        out = retainSystemUiFlag(window, out, View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-        out = retainSystemUiFlag(window, out, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        out = retainSystemUiFlag(window, out, View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-        return out
+        var retOut = out
+        retOut = retainSystemUiFlag(window, retOut, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        retOut = retainSystemUiFlag(window, retOut, View.SYSTEM_UI_FLAG_FULLSCREEN)
+        retOut = retainSystemUiFlag(window, retOut, View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+        retOut = retainSystemUiFlag(window, retOut, View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        retOut = retainSystemUiFlag(window, retOut, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        retOut = retainSystemUiFlag(window, retOut, View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
+        return retOut
     }
 
     private fun retainSystemUiFlag(window: Window, out: Int, type: Int): Int {
-        var out = out
+        var retOut = out
         val now = window.decorView.systemUiVisibility
         if (now and type == type) {
-            out = out or type
+            retOut = retOut or type
         }
-        return out
+        return retOut
     }
 
 

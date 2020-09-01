@@ -119,7 +119,7 @@ object DateUtil {
         val dateFormat = SimpleDateFormat(format, Locale.CHINA)
         var date: Long = 0
         try {
-            date = dateFormat.parse(time).time
+            date = dateFormat.parse(time)?.time ?: 0
         } catch (e: ParseException) {
             e.printStackTrace()
         }
@@ -136,7 +136,7 @@ object DateUtil {
         val dateFormat = SimpleDateFormat(format, Locale.CHINA)
         val date: Long
         try {
-            date = dateFormat.parse(time).time
+            date = dateFormat.parse(time)?.time ?: 0
             timeString = if (date <= 0) "" else format(date, "yyyy-MM")
         } catch (e: ParseException) {
             e.printStackTrace()
@@ -168,11 +168,8 @@ object DateUtil {
 
     //毫秒换成00:00:00
     fun getCountTimeByLong(
-        finishTime: Long,
-        hourStr: String,
-        minStr: String,
-        secondStr: String,
-        showHourIfZero: Boolean
+        finishTime: Long, hourStr: String,
+        minStr: String, secondStr: String, showHourIfZero: Boolean
     ): String {
         var totalTime = (finishTime / 1000).toInt()//秒
         var hour = 0
@@ -181,11 +178,11 @@ object DateUtil {
 
         if (3600 <= totalTime) {
             hour = totalTime / 3600
-            totalTime = totalTime - 3600 * hour
+            totalTime -= 3600 * hour
         }
         if (60 <= totalTime) {
             minute = totalTime / 60
-            totalTime = totalTime - 60 * minute
+            totalTime -= 60 * minute
         }
         if (0 <= totalTime) {
             second = totalTime
@@ -299,7 +296,7 @@ object DateUtil {
             e.printStackTrace()
         }
 
-        return dft.format(endDate)
+        return if (endDate == null) "" else dft.format(endDate)
     }
 
     /**
@@ -311,7 +308,7 @@ object DateUtil {
         val format = SimpleDateFormat(pattern, Locale.CHINA)
         val c = Calendar.getInstance()
         try {
-            c.time = format.parse(time)
+            c.time = format.parse(time) ?: Date()
         } catch (e: ParseException) {
             e.printStackTrace()
         }

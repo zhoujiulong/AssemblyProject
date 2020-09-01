@@ -14,13 +14,8 @@ object SoftKeyBordUtil {
     fun openKeybord(mEditText: EditText, activity: Activity) {
         if (isSoftInputShow(activity)) return
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (imm != null) {
-            imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN)
-            imm.toggleSoftInput(
-                InputMethodManager.SHOW_FORCED,
-                InputMethodManager.HIDE_IMPLICIT_ONLY
-            )
-        }
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN)
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
     /**
@@ -29,7 +24,7 @@ object SoftKeyBordUtil {
     fun closeKeybord(view: View, activity: Activity) {
         if (!isSoftInputShow(activity)) return
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     /**
@@ -40,11 +35,9 @@ object SoftKeyBordUtil {
         val view = activity.window.peekDecorView()
         if (view != null) {
             // 隐藏虚拟键盘
-            val inputmanger =
+            val inputManger =
                 activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-            if (inputmanger != null) {
-                return inputmanger.isActive && activity.window.currentFocus != null
-            }
+            return inputManger.isActive && activity.window.currentFocus != null
         }
         return false
     }

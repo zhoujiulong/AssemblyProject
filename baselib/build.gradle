@@ -58,7 +58,7 @@ dependencies {
     api rxpermissions
     //图片加载
     api glide
-    annotationProcessor glidecompiler
+    kapt glidecompiler
     api okhttp_integration
     //下拉刷新 https://github.com/scwang90/SmartRefreshLayout
     api smartrefreshlayout

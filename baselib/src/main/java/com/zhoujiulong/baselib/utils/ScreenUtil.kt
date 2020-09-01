@@ -2,7 +2,6 @@ package com.zhoujiulong.baselib.utils
 
 import android.Manifest.permission.WRITE_SETTINGS
 import android.app.Activity
-import android.app.KeyguardManager
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -11,14 +10,12 @@ import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.Surface
-import android.view.View
 import android.view.WindowManager
 import android.widget.ScrollView
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
-import java.lang.reflect.Field
 
 /**
  * <pre>
@@ -55,7 +52,8 @@ object ScreenUtil {
      */
     val screenHeight: Int
         get() {
-            val wm = ContextUtil.getContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val wm =
+                ContextUtil.getContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
             val point = Point()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 wm.defaultDisplay.getRealSize(point)
@@ -91,14 +89,10 @@ object ScreenUtil {
         }
         if (statusBarHeight <= 0) {
             try {
-                var c: Class<*>? = null
-                var obj: Any? = null
-                var field: Field? = null
-                var x = 0
-                c = Class.forName("com.android.internal.R\$dimen")
-                obj = c!!.newInstance()
-                field = c.getField("status_bar_height")
-                x = Integer.parseInt(field!!.get(obj).toString())
+                val c = Class.forName("com.android.internal.R\$dimen")
+                val obj = c.newInstance()
+                val field = c.getField("status_bar_height")
+                val x = Integer.parseInt(field.get(obj).toString())
                 statusBarHeight = activity.resources.getDimensionPixelSize(x)
                 return statusBarHeight
             } catch (e1: Exception) {
@@ -113,10 +107,9 @@ object ScreenUtil {
      * 获取导航栏高度
      */
     fun getNavigationHeight(context: Context): Int {
-        var resourceId = 0
         val rid = context.resources.getIdentifier("config_showNavigationBar", "bool", "android")
         if (rid != 0) {
-            resourceId =
+            val resourceId =
                 context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
             return context.resources.getDimensionPixelSize(resourceId)
         }
@@ -251,59 +244,13 @@ object ScreenUtil {
      * @return the rotation of screen
      */
     fun getScreenRotation(activity: Activity): Int {
-        when (activity.windowManager.defaultDisplay.rotation) {
-            Surface.ROTATION_0 -> return 0
-            Surface.ROTATION_90 -> return 90
-            Surface.ROTATION_180 -> return 180
-            Surface.ROTATION_270 -> return 270
-            else -> return 0
+        return when (activity.windowManager.defaultDisplay.rotation) {
+            Surface.ROTATION_0 -> 0
+            Surface.ROTATION_90 -> 90
+            Surface.ROTATION_180 -> 180
+            Surface.ROTATION_270 -> 270
+            else -> 0
         }
-    }
-
-    /**
-     * Return the bitmap of screen.
-     *
-     * @param activity          The activity.
-     * @param isDeleteStatusBar True to delete status bar, false otherwise.
-     * @return the bitmap of screen
-     */
-    @JvmOverloads
-    fun screenShot(activity: Activity, isDeleteStatusBar: Boolean = false): Bitmap {
-        val decorView = activity.window.decorView
-        decorView.isDrawingCacheEnabled = true
-        decorView.buildDrawingCache()
-        val bmp = decorView.drawingCache
-        val dm = DisplayMetrics()
-        activity.windowManager.defaultDisplay.getMetrics(dm)
-        val ret: Bitmap
-        if (isDeleteStatusBar) {
-            val resources = activity.resources
-            val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-            val statusBarHeight = resources.getDimensionPixelSize(resourceId)
-            ret = Bitmap.createBitmap(
-                bmp,
-                0,
-                statusBarHeight,
-                dm.widthPixels,
-                dm.heightPixels - statusBarHeight
-            )
-        } else {
-            ret = Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels)
-        }
-        decorView.destroyDrawingCache()
-        return ret
-    }
-
-    /**
-     * 获取控件的截图
-     */
-    fun screenShotView(view: View): Bitmap {
-        view.isDrawingCacheEnabled = true
-        view.buildDrawingCache()
-        val bmp = view.drawingCache
-        val ret = Bitmap.createBitmap(bmp, 0, 0, view.measuredWidth, view.measuredHeight)
-        view.destroyDrawingCache()
-        return ret
     }
 
     /**
@@ -312,7 +259,11 @@ object ScreenUtil {
      * @param backgroundColorRes 背景颜色
      * @param radius             背景圆角大小
      */
-    fun screenShotView(scrollView: ScrollView, @ColorRes backgroundColorRes: Int, @DimenRes radius: Int): Bitmap {
+    fun screenShotView(
+        scrollView: ScrollView,
+        @ColorRes backgroundColorRes: Int,
+        @DimenRes radius: Int
+    ): Bitmap {
         var h = 0
         val bitmap: Bitmap
         for (i in 0 until scrollView.childCount) {
@@ -331,18 +282,6 @@ object ScreenUtil {
     }
 
     /**
-     * Return whether screen is locked.
-     *
-     * @return `true`: yes<br></br>`false`: no
-     */
-    val isScreenLock: Boolean
-        get() {
-            val km =
-                ContextUtil.getContext().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            return km != null && km.inKeyguardRestrictedInputMode()
-        }
-
-    /**
      * Return the duration of sleep.
      *
      * @return the duration of sleep.
@@ -356,14 +295,14 @@ object ScreenUtil {
      */
     var sleepDuration: Int
         get() {
-            try {
-                return Settings.System.getInt(
+            return try {
+                Settings.System.getInt(
                     ContextUtil.getContext().contentResolver,
                     Settings.System.SCREEN_OFF_TIMEOUT
                 )
             } catch (e: Settings.SettingNotFoundException) {
                 e.printStackTrace()
-                return -123
+                -123
             }
 
         }

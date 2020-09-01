@@ -1,7 +1,5 @@
 package com.zhoujiulong.baselib.utils
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -33,29 +31,12 @@ object PhoneUtils {
         }
 
     /**
-     * 获取版本号Code
-     */
-    val appCode: Int
-        get() {
-            val manager = ContextUtil.getContext().packageManager
-            var code = 0
-            try {
-                val info = manager.getPackageInfo(ContextUtil.getContext().packageName, 0)
-                code = info.versionCode
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }
-
-            return code
-        }
-
-    /**
      * 获取设备 ID
      */
     val systemId: String
         get() = Settings.System.getString(
             ContextUtil.getContext().contentResolver,
-            Settings.System.ANDROID_ID
+            Settings.Secure.ANDROID_ID
         )
 
     /**
@@ -78,18 +59,6 @@ object PhoneUtils {
      */
     fun goAppDetailSetting(context: Context) {
         PermissionSettingPage.start(context, false)
-    }
-
-    /**
-     * 将文本复制到系统的剪切板
-     */
-    fun clipTextToSystem(context: Context, text: String) {
-        //获取剪贴板管理器：
-        val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        // 创建普通字符型ClipData
-        val mClipData = ClipData.newPlainText("xingfugo", text)
-        // 将ClipData内容放到系统剪贴板里。
-        cm.primaryClip = mClipData
     }
 
     /**
