@@ -5,7 +5,7 @@ import com.zhoujiulong.baselib.LoadingDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BaseActivity<T : BasePresenter<*, *>> : SimpleActivity(),
+abstract class BaseActivity<T : BasePresenter<out BaseModel<*>, out BaseView>> : SimpleActivity(),
     BaseView {
 
     /**
