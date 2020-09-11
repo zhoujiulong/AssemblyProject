@@ -59,7 +59,7 @@ internal class RequestHelper private constructor() {
      * @param listener 请求完成后的回调
      * @param <T>      请求返回的数据对应的类型，第一层必须继承 BaseResponse
     </T> */
-    fun <T> sendRequest(reTag: String, call: Call<T>, listener: RequestListener<T>) {
+    fun <T : BaseResponse> sendRequest(reTag: String, call: Call<T>, listener: RequestListener<T>) {
         if (!NetworkUtil.isNetworkAvailable(ContextUtil.getContext())) {
             listener.requestError(
                 null,
@@ -76,70 +76,47 @@ internal class RequestHelper private constructor() {
                 //判断请求是否取消了，如果取消了就不再往下执行
                 if (!RequestManager.instance.hasRequest(reTag)) return
                 RequestManager.instance.removeCall(reTag, call)
+                val baseResponse = response.body()
                 val code = response.code()
                 if (code != 200) {//接口请求失败
                     if (code == 502 || code == 404) {
                         listener.requestError(
-                            null,
-                            RequestErrorType.COMMON_ERROR,
-                            "服务器异常，请稍后重试",
-                            code
+                            null, RequestErrorType.COMMON_ERROR,
+                            "服务器异常，请稍后重试", code
                         )
                     } else if (code == 504) {
                         listener.requestError(
-                            null,
-                            RequestErrorType.COMMON_ERROR,
-                            "网络不给力,请检查网路",
-                            code
+                            null, RequestErrorType.COMMON_ERROR,
+                            "网络不给力,请检查网路", code
                         )
                     } else {
                         listener.requestError(
-                            null,
-                            RequestErrorType.COMMON_ERROR,
-                            "网络好像出问题了哦",
-                            code
+                            null, RequestErrorType.COMMON_ERROR,
+                            "网络好像出问题了哦", code
                         )
                     }
-                } else if (response.body() == null) {//返回数据为空
+                } else if (baseResponse == null) {//返回数据为空
                     listener.requestError(null, RequestErrorType.COMMON_ERROR, "返回数据为空！", code)
                 } else {//接口请求成功
-                    val body = response.body()
-                    if (body is BaseResponse) {//判断返回的数据类型是否是继承 BaseResponse
-                        val baseResponse = body as BaseResponse
-                        if (CodeConstant.REQUEST_SUCCESS_CODE == baseResponse.code) {//获取数据正常
-                            listener.requestSuccess(response.body() as T)
-                            //{"message":"未登录或token失效","code":1002}
-                        } else if (CodeConstant.ON_TOKEN_INVALID_CODE == baseResponse.code) {//Token失效
-                            if (mOnTokenInvalidListener != null && !listener.checkLogin(
-                                    baseResponse.code,
-                                    baseResponse.message
-                                )
-                            ) {
-                                listener.requestError(
-                                    response.body(),
-                                    RequestErrorType.TOKEN_INVALID,
-                                    baseResponse.message,
-                                    baseResponse.code
-                                )
-                                mOnTokenInvalidListener!!.onTokenInvalid(
-                                    baseResponse.code,
-                                    baseResponse.message
-                                )
-                            }
-                        } else {//从后台获取数据失败，其它未定义的错误
+                    if (CodeConstant.REQUEST_SUCCESS_CODE == baseResponse.code) {//获取数据正常
+                        listener.requestSuccess(baseResponse)
+                    } else if (CodeConstant.ON_TOKEN_INVALID_CODE == baseResponse.code) {//Token失效
+                        if (mOnTokenInvalidListener != null && !listener.checkLogin(
+                                baseResponse.code, baseResponse.message
+                            )
+                        ) {
                             listener.requestError(
-                                response.body(),
-                                RequestErrorType.COMMON_ERROR,
-                                baseResponse.message,
-                                baseResponse.code
+                                response.body(), RequestErrorType.TOKEN_INVALID,
+                                baseResponse.message, baseResponse.code
+                            )
+                            mOnTokenInvalidListener!!.onTokenInvalid(
+                                baseResponse.code, baseResponse.message
                             )
                         }
-                    } else {//Service类中的返回类型没有继承 BaseResponse
+                    } else {//从后台获取数据失败，其它未定义的错误
                         listener.requestError(
-                            null,
-                            RequestErrorType.COMMON_ERROR,
-                            "请求返回数据的第一层类型必须继承 BaseResponse！",
-                            CodeConstant.REQUEST_FAILD_CODE
+                            response.body(), RequestErrorType.COMMON_ERROR,
+                            baseResponse.message, baseResponse.code
                         )
                     }
                 }
@@ -149,10 +126,8 @@ internal class RequestHelper private constructor() {
                 if (!RequestManager.instance.hasRequest(reTag)) return
                 RequestManager.instance.removeCall(reTag, call)
                 listener.requestError(
-                    null,
-                    RequestErrorType.COMMON_ERROR,
-                    "请求失败",
-                    CodeConstant.REQUEST_FAILD_CODE
+                    null, RequestErrorType.COMMON_ERROR,
+                    "请求失败", CodeConstant.REQUEST_FAILD_CODE
                 )
             }
         })
